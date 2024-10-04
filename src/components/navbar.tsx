@@ -1,5 +1,6 @@
 import { Logo1 } from '../assets/logo1';
 import { Logo2 } from '../assets/logo2';
+import "../style/navbar.css";
 
 const Navbar = () => {
     return (
