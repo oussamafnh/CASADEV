@@ -159,17 +159,6 @@ const RegisterForm = () => {
               </>
             )}
           </p>
-
-          <div className="buttons-container">
-            <div className="apple-login-button">
-              <Github />
-              <span>{isSignUp ? "Sign up" : "Sign in"} with Github</span>
-            </div>
-            <div className="google-login-button">
-              <Google />
-              <span>{isSignUp ? "Sign up" : "Sign in"} with Google</span>
-            </div>
-          </div>
         </div>
       </div>
     </>

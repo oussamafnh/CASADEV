@@ -30,14 +30,18 @@
     padding-top: 3.4vh;
     height: 3vh;
 }
+
+
+.navbar .container .subscribesec .a-button {
+  margin-top: 2vh;
+  margin-left: 2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3vh 5vh;
+}
 .navbar .container .subscribesec .button {
-    margin-top: 2vh;
-    margin-left: 2vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3vh 5vh;
-    gap: 15px;
+    padding: 2vh 4vh;
     background-color: #181717;
     outline: 3px #181717 solid;
     outline-offset: -3px;

@@ -1,14 +1,13 @@
 
 import './App.css'
-import RegisterForm from './components/auth/register'
 import Navbar from './components/navbar'
-
+import RouteConfig from './route';
 function App() {
 
   return (
     <>
       <Navbar />
-      <RegisterForm />
+      <RouteConfig />
     </>
   )
 }
