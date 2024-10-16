@@ -1,0 +1,107 @@
+
+.profilesetup {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100vw;
+    background-color: var(--bg);
+}
+
+.profilesetup .container {
+    background: var(--bg);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar-slider {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.avatar-slide {
+    flex: none;
+    width: 60px;
+    height: 60px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: border 0.3s, transform 0.3s;
+}
+
+.avatar-slide:hover {
+    transform: scale(1.1);
+}
+
+.avatar-slide.selected {
+    border: 2px solid var(--c4);
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.avatar-slide img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cardmid {
+    width: 100%;
+}
+
+.card {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.card-title {
+    margin-bottom: 15px;
+}
+
+.card-title input,
+.card-title textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+.card-title input:focus,
+.card-title textarea:focus {
+    border-color: var(--c4);
+    outline: none;
+}
+
+.card-title textarea {
+    resize: none;
+    height: 60px;
+}
+
+.card-title .submit-button {
+    background-color: var(--c4);
+    color: var(--bg);
+    border: none;
+    padding: 10px 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card-title .submit-button:hover {
+    background-color: #0056b3;
+}

@@ -1,34 +1,36 @@
 .navbar {
-    height: 10vh;
-    background-color: var(--bg);
-    width: 100vw;
+  height: 10vh;
+  background-color: var(--bg);
+  width: 100vw;
 
 }
 
 .navbar .container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    position: relative;
-    border-bottom: 0.1vh solid var(--c2);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  border-bottom: 0.1vh solid var(--c2);
 }
 
 .navbar .container .Logo1 {
-    padding-top: 2vh;
-    height: 6vh;
-    margin-left: 3vw;
+  padding-top: 2vh;
+  height: 6vh;
+  margin-left: 3vw;
 }
-.navbar .container .subscribesec{
-    display: flex;
-    flex-direction: row;
-    height: 6vh;
-    margin-right: 3vw;
+
+.navbar .container .subscribesec {
+  display: flex;
+  flex-direction: row;
+  height: 6vh;
+  margin-right: 3vw;
 }
+
 .navbar .container .subscribesec .sharesvg {
-    padding-top: 3.4vh;
-    height: 3vh;
+  padding-top: 3.4vh;
+  height: 3vh;
 }
 
 
@@ -40,49 +42,150 @@
   align-items: center;
   padding: 3vh 5vh;
 }
+
 .navbar .container .subscribesec .button {
-    padding: 2vh 4vh;
-    background-color: #181717;
-    outline: 3px #181717 solid;
-    outline-offset: -3px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: 400ms;
-  }
-  
+  padding: 2vh 4vh;
+  background-color: #181717;
+  outline: 3px #181717 solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+}
+
 .navbar .container .subscribesec .button .text {
-    color: white;
-    font-weight: 700;
-    font-size: 1em;
-    transition: 400ms;
-  }
-  
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+  transition: 400ms;
+}
+
 .navbar .container .subscribesec .button svg path {
-    transition: 400ms;
-  }
-  
+  transition: 400ms;
+}
+
 .navbar .container .subscribesec .button:hover {
-    background-color: transparent;
-  }
-  
+  background-color: transparent;
+}
+
 .navbar .container .subscribesec .button:hover .text {
-    color: #181717;
-  }
-  
+  color: #181717;
+}
+
 .navbar .container .subscribesec .button:hover svg path {
-    fill: #181717;
-  }
+  fill: #181717;
+}
 
 .navbar .container .logoLink {
-    position: absolute;
-    width: 14vw;
-    top: 1vh;
-    left: 0;
-    right: 0;
-    margin: auto;
+  position: absolute;
+  width: 14vw;
+  top: 1vh;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
-.navbar .container .logoLink .Logo2{
-    width: 100%;
-    height: auto;
+
+.navbar .container .logoLink .Logo2 {
+  width: 100%;
+  height: auto;
+}
+
+/* .user-profile {
+  display: flex;
+  align-items: center;
+} */
+
+/* userProfile.css */
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 3vh;
+  cursor: pointer;
+}
+
+.profile-menu {
+  position: relative;
+  /* Relative positioning for dropdown */
+}
+
+.user-avatar {
+  height: 6vh;
+  width: auto;
+  border-radius: 10px;
+}
+.profile-menu svg{
+  height:6vh;
+  width: auto;
+}
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.dropdown button {
+  display: block;
+  /* Button takes full width */
+  width: 100%;
+  /* Full width */
+  padding: 10px;
+  /* Spacing */
+  border: none;
+  /* Remove border */
+  background: none;
+  /* No background */
+  text-align: left;
+  /* Align text to the left */
+  cursor: pointer;
+  /* Change cursor to pointer */
+}
+
+.dropdown button:hover {
+  background-color: #f0f0f0;
+  /* Background on hover */
+}
+
+.profile-pic {
+  width: 40px;
+  /* Adjust the size as needed */
+  height: 40px;
+  border-radius: 50%;
+  /* Makes it circular */
+  margin-right: 10px;
+  /* Space between image and username */
+}
+
+.username {
+  margin-right: 10px;
+  /* Space between username and burger menu */
+  font-weight: bold;
+  /* Make username bold */
+}
+
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Aligns items to the left */
+}
+
+.burger-menu button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #181717;
+  /* Change color as needed */
+  transition: color 0.3s;
+}
+
+.burger-menu button:hover {
+  color: #ff0000;
+  /* Change color on hover */
 }

@@ -1,18 +1,17 @@
 import { useState } from "react";
-import Github from "../../assets/svgs/github.auth";
-import Google from "../../assets/svgs/google.auth";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../../style/register.css";
 
 const RegisterForm = () => {
-  const [isSignUp, setIsSignUp] = useState(true); // toggle between Sign Up and Sign In
+  const navigate = useNavigate(); // Initialize useNavigate
+  const [isSignUp, setIsSignUp] = useState(true); // Toggle between Sign Up and Sign In
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
     confirmPassword: "",
-  }); // form data state
-  const [errorMessage, setErrorMessage] = useState(""); // error message state
-  const [successMessage, setSuccessMessage] = useState(""); // success message state
+  }); // Form data state without username
+  const [errorMessage, setErrorMessage] = useState(""); // Error message state
+  const [successMessage, setSuccessMessage] = useState(""); // Success message state
 
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,17 +22,17 @@ const RegisterForm = () => {
   // Function to toggle between Sign Up and Sign In
   const toggleForm = () => {
     setIsSignUp((prev) => !prev);
-    setErrorMessage(""); // reset error message when toggling
-    setSuccessMessage(""); // reset success message when toggling
+    setErrorMessage(""); // Reset error message when toggling
+    setSuccessMessage(""); // Reset success message when toggling
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrorMessage(""); // reset errors before each request
-    setSuccessMessage(""); // reset success before each request
+    setErrorMessage(""); // Reset errors before each request
+    setSuccessMessage(""); // Reset success before each request
 
     // Validation
-    if (!formData.email || !formData.password || (isSignUp && !formData.username)) {
+    if (!formData.email || !formData.password || (isSignUp && !formData.confirmPassword)) {
       setErrorMessage("All fields are required");
       return;
     }
@@ -43,39 +42,42 @@ const RegisterForm = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // Add credentials if needed (useful if your backend is using cookies for sessions)
-          "Accept": "application/json", // Ensure the server returns JSON format
-        },
-        body: JSON.stringify({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          confirmPassword: formData.confirmPassword,
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/auth/${isSignUp ? "signup" : "login"}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+            ...(isSignUp && { confirmPassword: formData.confirmPassword })
+          }),
+          credentials: 'include'
+        }
+      );
 
       const data = await response.json();
+      console.log(data.user.isVerified); // Log the full response for debugging
 
       if (response.ok) {
-        setSuccessMessage("User registered successfully");
-        setErrorMessage("");
-        setFormData({ username: "", email: "", password: "", confirmPassword: "" });
-        setIsSignUp((prev) => !prev);
+        // Store token in session storage
+        sessionStorage.setItem('token', data.token); // Store the token
 
+        setSuccessMessage(isSignUp ? "User registered successfully" : "Logged in successfully");
+        setErrorMessage("");
+        setFormData({ email: "", password: "", confirmPassword: "" });
+        if (data.user.isVerified === false) {
+          navigate("/Profile_setup", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+          window.location.reload();
+        }
       } else {
-        // Handle errors based on the status codes
         if (response.status === 400) {
-          if (data.error === "User already exists") {
-            setErrorMessage("User already exists");
-          } else if (data.error === "Passwords do not match") {
-            setErrorMessage("Passwords do not match");
-          } else {
-            setErrorMessage(data.error);
-          }
+          setErrorMessage(data.error || "Some error occurred");
         } else {
           setErrorMessage("Some server error");
         }
@@ -92,19 +94,8 @@ const RegisterForm = () => {
         <div className={`form-container ${isSignUp ? "signup" : "signin"}`}>
           <p className="title">{isSignUp ? "Join us" : "Welcome back"}</p>
 
-
-
           <form className="form" onSubmit={handleSubmit}>
-            {isSignUp && (
-              <input
-                type="text"
-                className="input"
-                name="username"
-                value={formData.username}
-                onChange={handleInputChange}
-                placeholder="Username"
-              />
-            )}
+            {/* Removed username input */}
             <input
               type="email"
               className="input"
