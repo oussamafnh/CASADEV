@@ -2,11 +2,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Logo1 } from '../assets/logo1';
-import { Logo2 } from '../assets/logo2';
 import "../style/navbar.css";
 
 const Navbar = () => {
-    const [userData, setUserData] = useState<{ username: string } | null>(null); // State to hold user data
+    const [userData, setUserData] = useState<{
+        avatar: string | undefined; username: string
+    } | null>(null); // State to hold user data
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -39,8 +40,24 @@ const Navbar = () => {
     };
 
     const handleLogout = () => {
-        // Handle logout logic here
-        console.log("Logging out...");
+        const logoutfunction = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/api/auth/logout', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                    console.log("Logging out...");
+                } else {
+                    console.error('Failed to logout');
+                }
+            } catch (error) {
+                console.error('Error logout:', error);
+            }
+        };
+        logoutfunction();
     };
 
     return (

@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    height: 94vh;
     width: 100vw;
     background-color: var(--bg);
 }

@@ -2,3 +2,23 @@
     width: 100vw;
     height: 90vh;
 }
+
+.homecontainer{
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    height: 94vh;
+}
+
+
+.homecontainer .filtre_search{
+    background-color: var(--bg3);
+    width: 28vw;
+    height: 94vh;
+}
+
+.profile,
+.filtre_search {
+    position: sticky;
+    overflow: auto; /* In case you want scrollable content within them */
+}

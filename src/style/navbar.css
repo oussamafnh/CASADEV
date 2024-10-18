@@ -1,5 +1,5 @@
 .navbar {
-  height: 10vh;
+  height: 6vh;
   background-color: var(--bg);
   width: 100vw;
 
@@ -16,7 +16,6 @@
 }
 
 .navbar .container .Logo1 {
-  padding-top: 2vh;
   height: 6vh;
   margin-left: 3vw;
 }
@@ -35,8 +34,9 @@
 
 
 .navbar .container .subscribesec .a-button {
-  margin-top: 2vh;
-  margin-left: 2vw;
+  /* margin-top: 2vh; */
+  /* margin-left: 2vw; */
+  margin-right: -2vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +44,7 @@
 }
 
 .navbar .container .subscribesec .button {
-  padding: 2vh 4vh;
+  padding: 1vh 3vh;
   background-color: #181717;
   outline: 3px #181717 solid;
   outline-offset: -3px;
@@ -102,7 +102,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  margin-top: 3vh;
+  margin-top: 1vh;
   cursor: pointer;
 }
 
@@ -112,12 +112,12 @@
 }
 
 .user-avatar {
-  height: 6vh;
+  height: 5vh;
   width: auto;
   border-radius: 10px;
 }
 .profile-menu svg{
-  height:6vh;
+  height:5vh;
   width: auto;
 }
 .dropdown {
