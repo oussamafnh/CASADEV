@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import Alert from '../Alert'; // Import the Alert component
 import "../../style/register.css";
 
 const RegisterForm = () => {
@@ -10,11 +11,10 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   }); // Form data state without username
-  const [errorMessage, setErrorMessage] = useState(""); // Error message state
-  const [successMessage, setSuccessMessage] = useState(""); // Success message state
+  const [alert, setAlert] = useState(null); // State to manage alert
 
   // Handle input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -22,28 +22,26 @@ const RegisterForm = () => {
   // Function to toggle between Sign Up and Sign In
   const toggleForm = () => {
     setIsSignUp((prev) => !prev);
-    setErrorMessage(""); // Reset error message when toggling
-    setSuccessMessage(""); // Reset success message when toggling
+    setAlert(null); // Reset alert when toggling
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Reset errors before each request
-    setSuccessMessage(""); // Reset success before each request
+    setAlert(null); // Reset alert before each request
 
     // Validation
     if (!formData.email || !formData.password || (isSignUp && !formData.confirmPassword)) {
-      setErrorMessage("All fields are required");
+      setAlert({ message: "All fields are required", type: "error" });
       return;
     }
     if (isSignUp && formData.password !== formData.confirmPassword) {
-      setErrorMessage("Passwords do not match");
+      setAlert({ message: "Passwords do not match", type: "error" });
       return;
     }
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/auth/${isSignUp ? "signup" : "login"}`,
+        `http://localhost:8090/api/auth/${isSignUp ? "signup" : "login"}`,
         {
           method: "POST",
           headers: {
@@ -60,15 +58,17 @@ const RegisterForm = () => {
       );
 
       const data = await response.json();
-      console.log(data.user.isVerified); // Log the full response for debugging
-
+      
       if (response.ok) {
-        // Store token in session storage
         sessionStorage.setItem('token', data.token); // Store the token
 
-        setSuccessMessage(isSignUp ? "User registered successfully" : "Logged in successfully");
-        setErrorMessage("");
+        setAlert({ 
+          message: isSignUp ? "User registered successfully" : "Logged in successfully", 
+          type: "success" 
+        });
         setFormData({ email: "", password: "", confirmPassword: "" });
+        
+        // Redirect user based on verification status
         if (data.user.isVerified === false) {
           navigate("/Profile_setup", { replace: true });
         } else {
@@ -76,15 +76,10 @@ const RegisterForm = () => {
           window.location.reload();
         }
       } else {
-        if (response.status === 400) {
-          setErrorMessage(data.error || "Some error occurred");
-        } else {
-          setErrorMessage("Some server error");
-        }
+        setAlert({ message: data.error || "Some error occurred", type: "error" });
       }
     } catch (error) {
-      console.error("Fetch error:", error);
-      setErrorMessage("An unexpected error occurred");
+      setAlert({ message: "An unexpected error occurred", type: "error" });
     }
   };
 
@@ -95,7 +90,6 @@ const RegisterForm = () => {
           <p className="title">{isSignUp ? "Join us" : "Welcome back"}</p>
 
           <form className="form" onSubmit={handleSubmit}>
-            {/* Removed username input */}
             <input
               type="email"
               className="input"
@@ -122,12 +116,6 @@ const RegisterForm = () => {
                 placeholder="Password confirmation"
               />
             )}
-
-            {/* Display error message */}
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-            {/* Display success message */}
-            {successMessage && <p className="success-message">{successMessage}</p>}
             <button className="form-btn">
               {isSignUp ? "Sign up" : "Sign in"}
             </button>
@@ -151,6 +139,15 @@ const RegisterForm = () => {
             )}
           </p>
         </div>
+
+        {/* Render the Alert if there's a message */}
+        {alert && (
+          <Alert 
+            message={alert.message} 
+            type={alert.type} 
+            onClose={() => setAlert(null)} // Clear the alert after it closes
+          />
+        )}
       </div>
     </>
   );

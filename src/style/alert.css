@@ -1,0 +1,29 @@
+.alert-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-size: 1.4vh;
+    z-index: 1000;
+    opacity: 0.9;
+    color: white;
+    animation: fadeInOut 0.3s ease-in-out;
+}
+
+.alert-box.success {
+    background-color: #4caf50; /* Green for success */
+}
+
+.alert-box.error {
+    background-color: #f44336; /* Red for error */
+}
+
+@keyframes fadeInOut {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

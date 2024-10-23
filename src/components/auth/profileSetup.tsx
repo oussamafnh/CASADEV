@@ -20,7 +20,7 @@ const ProfileSetup = () => {
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/auth/avatars', {
+        const response = await fetch('http://localhost:8090/api/auth/avatars', {
           credentials: 'include' // Include credentials for cookies
         });
         const data = await response.json();
@@ -52,7 +52,7 @@ const ProfileSetup = () => {
     try {
 
       // Send user profile data to setup-profile endpoint
-      await fetch('http://localhost:8080/api/auth/setup-profile', {
+      await fetch('http://localhost:8090/api/auth/setup-profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

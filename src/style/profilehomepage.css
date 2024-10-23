@@ -1,45 +1,244 @@
+
 .Profilehomepage {
     background-color: var(--bg3);
     width: 28vw;
     height: 94vh;
 }
 
-.Profilehomepage .profilecard{
+.Profilehomepage .profilecard {
     position: sticky;
     overflow: auto;
     margin-top: 2vh;
     height: 90vh;
     width: 90%;
     margin-left: 5%;
-    background-color: var(--bg3);
     border-radius: 10px;
+    opacity: 1;
+    animation: fadeIn 1.5s ;
 }
 
-.Profilehomepage .profilesection{
-    margin-inline: 2vh;
-    height: 35vh;
+.Profilehomepage .profilesection {
+    margin-inline: 1vw;
+    height: 30vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: var(--bg);
     border-radius: 10px;
+    position: relative;
+    border: 1px solid var(--border);
 
 }
 
-.Profilehomepage .profilesection .header{
+.Profilehomepage .profilesection .header {
     width: 100%;
-    height: 60%;
+    height: 55%;
     border-radius: 10px;
-    background: repeating-linear-gradient(
-        45deg,
-        #efefef,
-        #efefef 10px,
-        #444cf7 10px,
-        #444cf7 20px
-        );
-  }
-
-.Profilehomepage .profilesection .username{
-    text-transform: uppercase;
+    background: repeating-linear-gradient(45deg,
+            #efefef,
+            #efefef 10px,
+            #444cf7 10px,
+            #444cf7 20px);
 }
-  
+
+.Profilehomepage .profilesection .name {
+    bottom: 1vh;
+    position: absolute;
+    text-align: center;
+}
+
+
+.Profilehomepage .profilesection .username {
+    text-transform: uppercase;
+    font-size: 2.5vh;
+}
+
+
+
+.Profilehomepage .profilesection .name .bio {
+    font-size: 1.5vh;
+    font-weight: 800;
+    color: var(--c6);
+}
+
+
+.Profilehomepage .profilesection .avatar {
+    height: 12vh;
+    border-radius: 50%;
+    bottom: 8vh;
+    position: absolute;
+    text-align: center;
+}
+.profilecard_navbar{
+    margin-inline: 1vw;
+    margin-top: 2vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    position: relative;
+}
+
+.profilecard_navbar_btn {
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 1.5vh;
+    outline: 0 !important;
+    background: var(--bg);
+    color: var(--c2);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid var(--border);
+
+}
+
+.profilecard_navbar_btn:active {
+    box-shadow: none;
+    border: 1px solid var(--border);
+}
+
+.profilecard_navbar_btn_logout{
+    margin-top: 32vh;
+}
+.Profilehomepage .navbar_icon {
+    margin-right: 8px; /* Space between the icon and text */
+    vertical-align: middle; /* Aligns the icon with the text */
+    font-size: 1.2em; /* Adjust icon size if necessary */
+}
+.profilecard_navbar_btn_signin{
+    margin-top: -1.7vh;
+}
+
+
+
+
+
+
+
+
+
+.Profilehomepage_loading {
+    background-color: var(--bg3);
+    width: 28vw;
+    height: 94vh;
+}
+
+.Profilehomepage_loading .profilecard_loading {
+    animation: fadeInOut 1.5s infinite; /* Adjust the duration as needed */
+    position: sticky;
+    overflow: auto;
+    margin-top: 2vh;
+    height: 90vh;
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 10px;
+}
+
+.Profilehomepage_loading .profilesection_loading {
+    margin-inline: 1vw;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg);
+    border-radius: 10px;
+    position: relative;
+    border: 1px solid var(--border);
+}
+
+.Profilehomepage_loading .profilesection_loading .header_loading {
+    width: 100%;
+    height: 55%;
+    border-radius: 10px;
+    background: var(--bg4);
+}
+
+.Profilehomepage_loading .profilesection_loading .name_loading {
+    bottom: 1vh;
+    position: absolute;
+    text-align: center;
+}
+
+
+.Profilehomepage_loading .profilesection_loading .username_loading {
+    padding: 10px 100px;
+    border-radius: 5px;
+    margin-top: 1.5vh;
+    background-color: var(--bg5);
+}
+
+
+
+.Profilehomepage_loading .profilesection_loading .bio_loading {
+    padding: 8px 60px;
+    border-radius: 5px;
+    margin-top: 1.5vh;
+    background-color: var(--bg4);
+}
+
+
+.Profilehomepage_loading .profilesection_loading .avatar_loading {
+    height: 80px;
+    width: 80px;
+    background-color: var(--bg5);
+    border-radius: 50%;
+    bottom: 8vh;
+    position: absolute;
+    text-align: center;
+}
+.profilecard_navbar_loading{
+    margin-inline: 1vw;
+    margin-top: 2vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    position: relative;
+}
+
+.profilecard_navbar_btn_loading {
+    padding: 23px;
+    border-radius: 5px;
+    margin-top: 1.5vh;
+    outline: 0 !important;
+    background: var(--bg);
+    color: var(--c2);
+    text-decoration: none;
+    border: 1px solid var(--border);
+
+}
+
+.profilecard_navbar_btn_logout_loading{
+    margin-top: 32vh;
+    border: 1px solid var(--border);
+
+}
+
+
+
+
+
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
