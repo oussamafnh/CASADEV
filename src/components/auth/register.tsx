@@ -58,16 +58,17 @@ const RegisterForm = () => {
       );
 
       const data = await response.json();
-      
+
       if (response.ok) {
         sessionStorage.setItem('token', data.token); // Store the token
 
-        setAlert({ 
-          message: isSignUp ? "User registered successfully" : "Logged in successfully", 
-          type: "success" 
+        setAlert({
+          message: isSignUp ? "User registered successfully" : "Logged in successfully",
+          type: "success"
         });
+
         setFormData({ email: "", password: "", confirmPassword: "" });
-        
+
         // Redirect user based on verification status
         if (data.user.isVerified === false) {
           navigate("/Profile_setup", { replace: true });
@@ -142,9 +143,9 @@ const RegisterForm = () => {
 
         {/* Render the Alert if there's a message */}
         {alert && (
-          <Alert 
-            message={alert.message} 
-            type={alert.type} 
+          <Alert
+            message={alert.message}
+            type={alert.type}
             onClose={() => setAlert(null)} // Clear the alert after it closes
           />
         )}

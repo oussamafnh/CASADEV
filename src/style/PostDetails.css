@@ -73,3 +73,250 @@
     color: gray;
     text-align: center;
 } */
+
+
+.postdetailspage {
+    width: 100vw;
+    height: 94vh;
+    padding-top: 0vh;
+    /* margin-top: -7.988vh; */
+    position: relative;
+    background-color: var(--bg3);
+}
+
+
+.postdetailswithimage {
+    position: relative;
+    width: 80vw;
+    margin-inline: 10vw;
+    height: 94vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.postdetailsimg {
+    width: 49%;
+    height: 78vh;
+    margin-block: 8vh;
+    background-color: var(--bg);
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+
+}
+
+.postdetailsimg .post-image {
+    width: 100%;
+    height: auto;
+    clear: both;
+    left: 0%;
+    top: 50%;
+    transform: translate(-0%, -50%);
+    position: absolute;
+}
+
+
+
+.post-details {
+    margin-left: 2%;
+    width: 49%;
+    height: 78vh;
+    margin-block: 8vh;
+    background-color: var(--bg);
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+
+.post-details .post-header {
+    width: 94%;
+    margin-inline: 3%;
+    height: auto;
+    padding-top: 1vh;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.post-details .post-header .avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
+
+.post-details .post-author-info {
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.post-details .post-author-info .author-name {
+    margin-top: 1vh;
+}
+
+.post-details .post-author-info .post-time {
+    font-size: 1.5vh;
+}
+
+
+
+
+.post-details .post-content {
+    margin-top: 3vh;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    padding-bottom: 3vh;
+
+}
+
+.post-details .post-content h3 {
+    font-size: 2.5vh;
+}
+
+.post-details .post-content p {
+    margin-top: 1vh;
+    font-size: 1.7vh;
+}
+
+.post-details .post-actions {
+    width: 95%;
+    background-color: var(--bg);
+    margin-inline: 2.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    bottom: 1vh;
+    border-radius: 10px;
+}
+
+
+.post-details .comment-form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.post-details .comment-form textarea {
+    width: 70%;
+    height: 5vh;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 var(--bg3);
+    border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+    border-image: none;
+    border-radius: 10px;
+    border-style: none solid solid none;
+    border-width: 0 0 0 0;
+    /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset; */
+    color: var(--c2);
+    font-size: 1.7vh;
+    padding: 5px 8px;
+    transition: background-color 0.2s ease 0s;
+}
+
+
+.post-details .comment-form textarea:focus {
+    background: none repeat scroll 0 0 #FFFFFF;
+    outline-width: 0;
+}
+
+.post-details .comment-form button{
+    width: 25%;
+    margin-left: 5%;
+    border-radius: 10px;
+    border: 0px;
+    cursor: pointer;
+}
+
+.notallowed-comment-form {
+    opacity: 50%;
+    pointer-events:none;
+}
+.notalolwed-post-actions{
+    opacity: 50%;
+}
+
+.post-details .btns {
+    width: 100%;
+    background-color: var(--bg);
+    display: flex;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+/* Like Button Styling */
+.post-details .like-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: var(--c2);
+    cursor: pointer;
+    font-size: 1.8vh;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.post-details .like-btn:hover {
+    color: var(--c2);
+}
+
+.post-details .like-btn svg.like-icon {
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+/* Toggled Like Button */
+.post-details .liked {
+    color: var(--c2);
+}
+
+.post-details .liked svg.like-icon {
+    fill: var(--c2);
+    stroke: none;
+    /* Remove stroke when liked */
+}
+
+/* Comment Button Styling */
+.post-details .comment-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: var(--c2);
+    cursor: pointer;
+    font-size: 1.8vh;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.post-details .comment-btn:hover {
+    color: var(--c2);
+}
+
+.post-details .comment-btn svg.comment-icon {
+    width: 24px;
+    height: 24px;
+    stroke: var(--c2);
+    fill: none;
+    transition: stroke 0.3s ease;
+}
+
+.post-details .elegant-btn {
+    padding: 8px 12px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.post-actions svg {
+    stroke: var(--c2);
+}

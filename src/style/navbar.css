@@ -12,7 +12,7 @@
   flex-direction: row;
   justify-content: space-between;
   position: relative;
-  border-bottom: 0.1vh solid var(--c2);
+  /* border-bottom: 0.1vh solid var(--c2); */
 }
 
 .navbar .container .Logo1 {
