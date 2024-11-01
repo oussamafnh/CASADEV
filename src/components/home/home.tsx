@@ -1,4 +1,5 @@
 import '../../style/home.css'
+import FiltreAndSearch from './FiltreAndSearch'
 import Homeposts from './homeposts'
 import Profilehomepage from './profilehomepage'
 
@@ -10,9 +11,7 @@ const Home = () => {
 
           <Homeposts />
 
-          <div className="filtre_search">
-
-          </div>
+          <FiltreAndSearch />
 
         </div>
     </div>

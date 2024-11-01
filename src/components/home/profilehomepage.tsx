@@ -2,7 +2,7 @@ import "../../style/profilehomepage.css";
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faFileAlt, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faUser, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Profilehomepage = () => {
     const [userData, setUserData] = useState(null);
@@ -116,13 +116,13 @@ const Profilehomepage = () => {
                     />
                 </div>
                 <div className="profilecard_navbar">
+                    <Link to="/profile" className="profilecard_navbar_btn">
+                        <FontAwesomeIcon icon={faUser} className="navbar_icon" />
+                        My Profile
+                    </Link>
                     <Link to="/" className="profilecard_navbar_btn">
                         <FontAwesomeIcon icon={faBookmark} className="navbar_icon" />
                         Bookmarks
-                    </Link>
-                    <Link to="/" className="profilecard_navbar_btn">
-                        <FontAwesomeIcon icon={faFileAlt} className="navbar_icon" />
-                        My Posts
                     </Link>
                     <Link to="/" onClick={handleLogout} className="profilecard_navbar_btn profilecard_navbar_btn_logout">
                         <FontAwesomeIcon icon={faSignOutAlt} className="navbar_icon" />

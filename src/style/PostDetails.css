@@ -1,79 +1,3 @@
-/* .post-details {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-}
-
-.post-header {
-    display: flex;
-    align-items: center;
-}
-
-.avatar {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-}
-
-.post-author-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.post-content h3 {
-    margin-top: 20px;
-}
-
-.post-image {
-    margin-top: 10px;
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.comments-section {
-    margin-top: 30px;
-}
-
-.comments-section.disabled {
-    background-color: #f5f5f5;
-    pointer-events: none;
-    opacity: 0.7;
-}
-
-.comment {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.comment-author {
-    font-weight: bold;
-}
-
-.comment-time {
-    font-size: 12px;
-    color: gray;
-}
-
-.comment-form textarea {
-    width: 100%;
-    height: 80px;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.comment-disabled {
-    color: gray;
-    text-align: center;
-} */
-
 
 .postdetailspage {
     width: 100vw;
@@ -85,34 +9,36 @@
 }
 
 
-.postdetailswithimage {
+.postdetails {
     position: relative;
     width: 80vw;
     margin-inline: 10vw;
     height: 94vh;
     display: flex;
     flex-direction: row;
+    animation: fadeIn 1.5s;
 }
 
 .postdetailsimg {
     width: 49%;
-    height: 78vh;
-    margin-block: 8vh;
-    background-color: var(--bg);
+    height: 88vh;
+    margin-block: 2vh;
     position: relative;
-    border-radius: 10px;
-    border: 1px solid var(--border);
 
 }
 
 .postdetailsimg .post-image {
-    width: 100%;
+    width: auto;
     height: auto;
+    max-height: 100%;
+    max-width: 100%;
     clear: both;
     left: 0%;
     top: 50%;
     transform: translate(-0%, -50%);
     position: absolute;
+    border: 1px solid var(--border);
+    border-radius: 10px;
 }
 
 
@@ -120,14 +46,17 @@
 .post-details {
     margin-left: 2%;
     width: 49%;
-    height: 78vh;
-    margin-block: 8vh;
+    height: 88vh;
+    margin-block: 2vh;
     background-color: var(--bg);
     position: relative;
     border-radius: 10px;
     border: 1px solid var(--border);
 }
-
+.withou-img .post-details{
+    width: 50%;
+    margin-left: 25%;
+}
 
 .post-details .post-header {
     width: 94%;
@@ -169,17 +98,62 @@
     margin-left: 2.5%;
     margin-right: 2.5%;
     padding-bottom: 3vh;
-
+    max-height:40%; /* Adjust this height as needed */
+    overflow-y: auto;
 }
 
 .post-details .post-content h3 {
-    font-size: 2.5vh;
+    font-size: 2vh;
 }
 
-.post-details .post-content p {
+.post-details .post-content .post-content_content{
     margin-top: 1vh;
-    font-size: 1.7vh;
+    font-size: 1.6vh;
 }
+
+
+
+.comments-section {
+    max-height: 26%; /* Adjust this height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 10px; /* Optional: Adds padding inside the comments section */
+    background-color: var(--bg); /* Optional: Sets a background color */
+    border-radius: 5px; /* Optional: Rounds the corners */
+}
+
+/* Optional: Styles for individual comments */
+.comment {
+    display: flex;
+    align-items: flex-start; /* Align items in the comment */
+    margin-bottom: 10px; /* Space between comments */
+}
+
+.comment-avatar {
+    width: 40px; /* Adjust the size of the avatar */
+    height: 40px; /* Ensure the avatar is circular */
+    border-radius: 50%; /* Make the avatar circular */
+    margin-right: 10px; /* Space between avatar and content */
+}
+
+.comment-content {
+    flex-grow: 1; /* Allows the comment content to take the remaining space */
+}
+
+.comment-content p {
+    font-size: 1.4vh; /* Smaller font for the comment content */
+}
+
+.comment-username {
+    font-weight: bold; /* Makes the username bold */
+    font-size: 1.5vh; /* Smaller font for the time */
+}
+
+.comment-time {
+    font-size: 1.2vh; /* Smaller font for the time */
+    color: #888; /* Lighter color for the time */
+}
+
+
 
 .post-details .post-actions {
     width: 95%;
@@ -319,4 +293,208 @@
 
 .post-actions svg {
     stroke: var(--c2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.postdetailspage_loading {
+    width: 100vw;
+    height: 94vh;
+    padding-top: 0vh;
+    position: relative;
+    background-color: var(--bg3);
+    animation: fadeInOut 1.5s infinite;
+}
+
+
+.postdetails_loading {
+    position: relative;
+    width: 80vw;
+    margin-inline: 10vw;
+    height: 94vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.post-detail_loadings{
+    height: 78vh;
+    margin-block: 8vh;
+    background-color: var(--bg);
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    width: 50%;
+    margin-left: 25%;
+}
+
+
+
+.post-detail_loadings .post_header_loading {
+    width: 95%;
+    height: 10%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    padding-top: 1vh;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.post-detail_loadings .post_header_loading .avatar_loading {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--bg3);
+}
+
+.post-detail_loadings .post_author_info_loading {
+    margin-top: 5px;
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.post-detail_loadings .post_author_info_loading .author_name_loading {
+    width: 170px;
+    height: 16px;
+    border-radius: 5px;
+    background-color: var(--bg3);
+}
+
+.post-detail_loadings .post_author_info_loading .post_time_loading {
+    width: 170px;
+    height: 16px;
+    border-radius: 5px;
+    background-color: var(--bg3);
+}
+
+
+
+.post-detail_loadings  .post_content {
+    margin-top: 8px;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    padding-bottom: 3vh;
+}
+
+.post-detail_loadings  .big_title_loading {
+    margin-top: 8px;
+    width: 170px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: var(--bg3);
+}
+
+.post-detail_loadings  .line_loading {
+    margin-top: 0.6vh;
+    margin-top: 1vh;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    background-color: var(--bg3);
+}
+
+.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading{
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    display: flex;
+    position: absolute;
+    bottom: 8vh;
+}
+
+.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading .commenttextarea_loading{
+    width: 70%;
+    height: 8vh;
+    background-color: var(--bg3);
+    border-radius: 10px;
+}
+.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading .btn_loading{
+    width: 25%;
+    margin-left: 5%;
+    height: 8vh;
+    background-color: var(--bg3);
+    border-radius: 10px;
+}
+
+
+.post-detail_loadings .post-actions_loading{
+    margin-left: 2.5%;
+    margin-top: 0vh;
+    padding-bottom: 1vh;
+    display: flex;
+    gap: 20px;
+    position: absolute;
+    bottom: 0vh;
+}
+
+.post-detail_loadings .likecounter_loading {
+    margin-top: 1vh;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: var(--bg3);
+}
+
+.post-detail_loadings .commentcounter_loading {
+    margin-top: 1vh;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: var(--bg3);
+}
+
+.post-detail_loadings .savecounter_loading {
+    margin-top: 1vh;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: var(--bg3);
+}
+
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

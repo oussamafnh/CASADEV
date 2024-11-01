@@ -14,9 +14,8 @@ const ProfileSetup = () => {
     username: '',
     bio: '',
     birthday: '',
-  }); // State for form data
-
-  // Fetch avatars from the endpoint
+  });
+  
   useEffect(() => {
     const fetchAvatars = async () => {
       try {

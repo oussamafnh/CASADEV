@@ -1,0 +1,122 @@
+.filterandsearch {
+    background-color: var(--bg3);
+    width: 28vw;
+    height: 94vh;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    overflow: auto;
+}
+
+
+.filterandsearch .createpost {
+    margin-top: 2vh;
+    height: 1vh;
+    width: 84%;
+    position: relative;
+    margin-inline: 8%;
+    border-radius: 10px;
+    opacity: 1;
+    animation: fadeIn 1.5s;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 1.5s ;
+}
+
+.filterandsearch .not_createpost {
+    opacity: 0.7;
+}
+
+.filterandsearch .createpost .createpost_btn {
+    padding: 15px;
+    border-radius: 5px;
+    outline: 0 !important;
+    background: var(--bg);
+    color: var(--c2);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+
+.plus_icon{
+    margin-right:10px ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.filterandsearch_loading {
+    background-color: var(--bg3);
+    width: 28vw;
+    height: 94vh;
+}
+
+
+.filterandsearch_loading  .createpost_loading  {
+    margin-top: 2vh;
+    height: 1vh;
+    width: 84%;
+    position: relative;
+    margin-inline: 8%;
+    border-radius: 10px;
+    opacity: 1;
+    animation: fadeIn 1.5s;
+    display: flex;
+    flex-direction: column;
+    animation: fadeInOut 1.5s infinite; /* Adjust the duration as needed */
+}
+
+.filterandsearch_loading  .createpost_loading  .createpost_btn_loading  {
+    padding: 25px;
+    border-radius: 5px;
+    outline: 0 !important;
+    background: var(--bg);
+    color: var(--c2);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+
+
+
+
+
+
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

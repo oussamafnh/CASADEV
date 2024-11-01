@@ -1,26 +1,31 @@
 import { useEffect, useState } from 'react';
 import PostCard from './PostCard'; // Import the PostCard component
 import '../../style/homeposts.css';
+import { useNavigate } from "react-router-dom";
+
 
 const Homeposts = () => {
     const [posts, setPosts] = useState([]);
     const [isAllowed, setIsAllowed] = useState(false); // Track if posts are allowed
     const [loading, setLoading] = useState(true); // Loading state
     const [sortType, setSortType] = useState('latest'); // Default sort type
+    const [paginate, setPaginate] = useState(1); // Default sort type
+    const navigate = useNavigate(); // Initialize useNavigate
+
 
     useEffect(() => {
         const fetchPosts = async () => {
-            setLoading(true); // Start loading
+            setLoading(true);
             try {
                 const endpoint = sortType === 'latest'
-                    ? 'http://localhost:8090/api/post/latest'
-                    : 'http://localhost:8090/api/post/mostliked';
-
+                    ? `http://localhost:8090/api/post/latest?page=${paginate}&limit=10`
+                    : `http://localhost:8090/api/post/mostliked?page=${paginate}&limit=10`;
+    
                 const response = await fetch(endpoint, {
                     credentials: 'include',
                 });
                 const data = await response.json();
-
+    
                 setIsAllowed(data.isAllowed); // Set isAllowed based on API response
                 setPosts(data.posts);
             } catch (error) {
@@ -29,12 +34,25 @@ const Homeposts = () => {
                 setLoading(false); // Stop loading
             }
         };
-
+    
         fetchPosts();
-    }, [sortType]); // Re-fetch posts when sortType changes
+    }, [sortType, paginate]); // Add paginate to the dependency array
+    const handleNextClick = () => {
+        setPaginate(prev => prev + 1);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Adds a smooth scroll effect
+        });
+    };
 
-
-
+    
+    const handlePreviousClick = () => {
+        setPaginate(prev => Math.max(prev - 1, 1));
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
 
 
     return (
@@ -102,11 +120,28 @@ const Homeposts = () => {
 
             ) : (
                 <>
+                    <div className={` ${paginate === 1 ? 'not_pagination' : 'pagination'}`}>
+                        <button 
+                            className="pagination_btn" 
+                            onClick={handlePreviousClick} 
+                            id='top'
+                        >
+                            Previous
+                        </button>
+                    </div>
                     {
                         posts.map((post) => (
                             <PostCard key={post._id} post={post} isAllowed={isAllowed} />
                         ))
                     }
+                    <div className="pagination">
+                        <button 
+                            className="pagination_btn" 
+                            onClick={handleNextClick}
+                        >
+                            Next
+                        </button>
+                    </div>
                 </>
             )}
         </div>
