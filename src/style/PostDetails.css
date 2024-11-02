@@ -72,6 +72,7 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .post-details .post-author-info {
@@ -81,8 +82,9 @@
     gap: 1vh;
 }
 
-.post-details .post-author-info .author-name {
+.post-details .post-author-info .author_name {
     margin-top: 1vh;
+    cursor: pointer;
 }
 
 .post-details .post-author-info .post-time {
@@ -281,7 +283,6 @@
     width: 24px;
     height: 24px;
     stroke: var(--c2);
-    fill: none;
     transition: stroke 0.3s ease;
 }
 

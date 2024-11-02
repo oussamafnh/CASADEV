@@ -25,6 +25,8 @@
 .post_card .post_header .avatar {
     width: 9%;
     height: auto;
+    cursor: pointer;
+
 }
 
 .post_card .post_author_info {
@@ -36,6 +38,7 @@
 
 .post_card .post_author_info .author_name {
     margin-top: 1vh;
+    cursor: pointer;
 }
 
 .post_card .post_author_info .post_time {
@@ -136,7 +139,6 @@
     width: 24px;
     height: 24px;
     stroke: var(--c2);
-    fill: none;
     transition: stroke 0.3s ease;
 }
 

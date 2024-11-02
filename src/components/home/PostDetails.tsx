@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'; // To get the post ID from the URL
 import Alert from '../Alert';
 import '../../style/postdetails.css'; // Create a new CSS file for styling
 import { formatDistanceToNow, format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -13,12 +14,14 @@ const PostDetails = () => {
     // const [comments, setComments] = useState([]); // State to hold comments
     const [newComment, setNewComment] = useState(''); // State to hold new comment input
     const [alert, setAlert] = useState(null); // State to control alert
-    const [isLiked, setIsLiked] = useState(false); // Initial like state
+    const [isLiked, setIsLiked] = useState(false);
+    const [isSaved, setIsSaved] = useState(false);
     const [likeCount, setLikeCount] = useState(0); // Like count
     const [isMe, setisMe] = useState(0); // Like count
     const [isAllowed, setIsAllowed] = useState(false); // Permission to interact (like/comment)
     const [loading, setLoading] = useState(true); // Loading state
     const [comments, setComments] = useState([]); // State to hold comments
+    const navigate = useNavigate(); // Initialize useNavigate
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -32,7 +35,8 @@ const PostDetails = () => {
                 });
                 const data = await response.json();
                 setPost(data.post);
-                setIsLiked(data.isLiked); // Assuming you have a field in your API response that tells if the post is liked
+                setIsLiked(data.isLiked);
+                setIsSaved(data.isSaved);
                 setLikeCount(data.likeCount);
                 setisMe(data.isMe);
                 setIsAllowed(data.isAllowed);
@@ -46,6 +50,36 @@ const PostDetails = () => {
         fetchPost();
     }, [postId]);
 
+    const handleSaveToggle = async () => {
+        if (!isAllowed) {
+            setAlert({ message: "You must be logged in to save posts!", type: "error" });
+            return;
+        }
+
+        try {
+            // If the post is already saved, call the API to unsave it
+            const response = await fetch(`http://localhost:8090/api/save/${postId}/save`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+            const data = await response.json();
+
+            if (data.message === "Post saved") {
+                setAlert({ message: "Post saved!", type: "success" });
+            } else if (data.message === "Post unsaved") {
+                setAlert({ message: "Post unsaved!", type: "success" });
+            } else {
+                setAlert({ message: "Failed to save/unsave post.", type: "error" });
+            }
+            // Update isSaved state after successful API call
+            setIsSaved(!isSaved);
+        } catch (error) {
+            console.error('Error toggling save:', error);
+        }
+    };
 
 
     const fetchComments = async () => {
@@ -170,6 +204,14 @@ const PostDetails = () => {
             ? formatDistanceToNow(createdAtDate, { addSuffix: true }) // e.g., "20 mins ago"
             : format(createdAtDate, 'MMMM d, yyyy'); // e.g., "September 12, 2024"
     };
+    const handleProfileClick = () => {
+        if (isMe) {
+            navigate(`/myprofile`);
+        }
+        else {
+            navigate(`/profile/${post.authorId}`);
+        }
+    };
 
     if (loading) {
         return (
@@ -216,7 +258,7 @@ const PostDetails = () => {
             <div className={` ${post.image ? 'postdetails' : 'postdetails withou-img'}`}>
                 {post.image &&
                     <div className="postdetailsimg">
-                        <img src={post.image} alt="Post content" className="post-image" />
+                        <img onClick={handleProfileClick} src={post.image} alt="Post content" className="post-image" />
                     </div>
                 }
                 <div className="post-details">
@@ -227,7 +269,7 @@ const PostDetails = () => {
                             className="avatar"
                         />
                         <div className="post-author-info">
-                            <span className="author_name">{isMe ? 'You' : (post.author || 'Unknown Author')}</span>
+                            <span onClick={handleProfileClick} className="author_name">{isMe ? 'You' : (post.author || 'Unknown Author')}</span>
                             <span className="post-time">{formattedPostTime()}</span>
                         </div>
                     </div>
@@ -289,11 +331,11 @@ const PostDetails = () => {
                                 {likeCount} Like
                             </button>
 
-                            <button className="comment-btn elegant-btn">
+                            <button className="comment-btn elegant-btn" onClick={handleSaveToggle}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    stroke="#0073b1"
+                                    fill={isSaved && isAllowed ? 'black' : 'none'}
+                                    stroke="black"
                                     viewBox="0 0 24 24"
                                     strokeWidth="2"
                                     className="comment-icon"
@@ -302,14 +344,23 @@ const PostDetails = () => {
                                 </svg>
                                 Save
                             </button>
-                            {isMe && ( // Check if isMe is true
-                                <button className="comment-btn elegant-btn" onClick={handleEditClick}>
-                                    <svg className="comment-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="_24x24_On_Light_Edit" data-name="24x24/On Light/Edit">
-                                        <rect id="view-box" width="24" height="24" fill="none" />
-                                        <path id="Shape" d="M.75,17.5A.751.751,0,0,1,0,16.75V12.569a.755.755,0,0,1,.22-.53L11.461.8a2.72,2.72,0,0,1,3.848,0L16.7,2.191a2.72,2.72,0,0,1,0,3.848L5.462,17.28a.747.747,0,0,1-.531.22ZM1.5,12.879V16h3.12l7.91-7.91L9.41,4.97ZM13.591,7.03l2.051-2.051a1.223,1.223,0,0,0,0-1.727L14.249,1.858a1.222,1.222,0,0,0-1.727,0L10.47,3.91Z" transform="translate(3.25 3.25)" fill="#141124" />
-                                    </svg>
-                                    Edit
-                                </button>
+                            {isMe && (
+                                <>
+                                    <button className="comment-btn elegant-btn" onClick={handleEditClick}>
+                                        <svg className="comment-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="_24x24_On_Light_Edit" data-name="24x24/On Light/Edit">
+                                            <rect id="view-box" width="24" height="24" fill="none" />
+                                            <path id="Shape" d="M.75,17.5A.751.751,0,0,1,0,16.75V12.569a.755.755,0,0,1,.22-.53L11.461.8a2.72,2.72,0,0,1,3.848,0L16.7,2.191a2.72,2.72,0,0,1,0,3.848L5.462,17.28a.747.747,0,0,1-.531.22ZM1.5,12.879V16h3.12l7.91-7.91L9.41,4.97ZM13.591,7.03l2.051-2.051a1.223,1.223,0,0,0,0-1.727L14.249,1.858a1.222,1.222,0,0,0-1.727,0L10.47,3.91Z" transform="translate(3.25 3.25)" fill="#141124" />
+                                        </svg>
+                                        Edit
+                                    </button>
+                                    <button className="comment-btn elegant-btn">
+                                        <svg className="comment-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 30 30">
+                                            <path d="M 7 4 C 6.744125 4 6.4879687 4.0974687 6.2929688 4.2929688 L 4.2929688 6.2929688 C 3.9019687 6.6839688 3.9019687 7.3170313 4.2929688 7.7070312 L 11.585938 15 L 4.2929688 22.292969 C 3.9019687 22.683969 3.9019687 23.317031 4.2929688 23.707031 L 6.2929688 25.707031 C 6.6839688 26.098031 7.3170313 26.098031 7.7070312 25.707031 L 15 18.414062 L 22.292969 25.707031 C 22.682969 26.098031 23.317031 26.098031 23.707031 25.707031 L 25.707031 23.707031 C 26.098031 23.316031 26.098031 22.682969 25.707031 22.292969 L 18.414062 15 L 25.707031 7.7070312 C 26.098031 7.3170312 26.098031 6.6829688 25.707031 6.2929688 L 23.707031 4.2929688 C 23.316031 3.9019687 22.682969 3.9019687 22.292969 4.2929688 L 15 11.585938 L 7.7070312 4.2929688 C 7.5115312 4.0974687 7.255875 4 7 4 z"></path>
+                                        </svg>
+
+                                        Delete
+                                    </button>
+                                </>
                             )}
                         </div>
 

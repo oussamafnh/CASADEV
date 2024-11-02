@@ -127,6 +127,7 @@
     height: 94vh;
 }
 .profilecomponent .profileposts .profilepostscontainer{
+    position: relative;
     background-color: var(--bg);
     width: 96%;
     margin-inline: 2%;
@@ -134,12 +135,18 @@
     height: 96%;
     border-radius: 15px;
     overflow-y: auto; /* Enables vertical scrolling */
+    border: 1px solid var(--border);
+}
 
+
+.profilecomponent .profileposts .profilepostscontainer_loading{
+    animation: fadeInOut 1.5s infinite;
+    background-color: var(--bg3);
 }
 
 
 .profilecomponent .profileposts .profilepostscontainer .post_card .post_header .avatar {
-    width: 10%;
+    width: 9%;
     height: auto;
 }
 
@@ -152,12 +159,65 @@
 
 .profilecomponent .profileposts .profilepostscontainer .post_card {
     margin-top: 2vh;
-    width: 50%;
-    margin-left: 25%;
+    width: 60%;
+    margin-left: 20%;
     background-color: var(--bg);
     border-radius: 10px;
     opacity: 1;
     animation: fadeIn 1.5s;
     border: 1px solid var(--border);
 
+}
+
+
+.profilecomponent .profileposts .profilepostscontainer .post_card .avatar{
+    cursor:auto ;
+
+}
+
+.profilecomponent .profileposts .profilepostscontainer .post_card .author_name{
+    cursor: auto;
+
+}
+
+
+.profilecomponent .profileposts  .profilepostscontainer .posttext{
+    font-size: 1.5vh;
+    color: var(--c6);
+    margin-top: 1.5vh;
+    margin-left: 1.5vw;
+    position: fixed;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

@@ -116,7 +116,7 @@ const Profilehomepage = () => {
                     />
                 </div>
                 <div className="profilecard_navbar">
-                    <Link to="/profile" className="profilecard_navbar_btn">
+                    <Link to="/myprofile" className="profilecard_navbar_btn">
                         <FontAwesomeIcon icon={faUser} className="navbar_icon" />
                         My Profile
                     </Link>
@@ -129,7 +129,6 @@ const Profilehomepage = () => {
                         Logout
                     </Link>
                 </div>
-
             </div>
         </div>
     );

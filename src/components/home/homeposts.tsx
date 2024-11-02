@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 const Homeposts = () => {
     const [posts, setPosts] = useState([]);
-    const [isAllowed, setIsAllowed] = useState(false); // Track if posts are allowed
+    const [isAllowed, setIsAllowed] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
+    const [isSaved, setIsSaved] = useState(false);
     const [loading, setLoading] = useState(true); // Loading state
     const [sortType, setSortType] = useState('latest'); // Default sort type
     const [paginate, setPaginate] = useState(1); // Default sort type
@@ -26,7 +28,9 @@ const Homeposts = () => {
                 });
                 const data = await response.json();
     
-                setIsAllowed(data.isAllowed); // Set isAllowed based on API response
+                setIsAllowed(data.isAllowed);
+                setIsLiked(data.isSaved);
+                setIsSaved(data.isSaved);
                 setPosts(data.posts);
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -131,7 +135,7 @@ const Homeposts = () => {
                     </div>
                     {
                         posts.map((post) => (
-                            <PostCard key={post._id} post={post} isAllowed={isAllowed} />
+                            <PostCard key={post._id} post={post} isAllowed={isAllowed}/>
                         ))
                     }
                     <div className="pagination">
