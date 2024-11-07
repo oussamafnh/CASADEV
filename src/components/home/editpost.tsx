@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import ReactQuill from 'react-quill';
@@ -7,19 +7,39 @@ import 'react-quill/dist/quill.snow.css';
 import "../../style/creatpost.css";
 import Alert from '../Alert';
 
-const CreatePost = () => {
+const EditPost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [alert, setAlert] = useState(null);
     const navigate = useNavigate();
-    const [alert, setAlert] = useState(null); // State to control alert
+    const { id } = useParams();
+
+    // Fetch the existing post data
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const response = await fetch(`http://localhost:8090/api/post/${id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setTitle(data.post.title);
+                    setContent(data.post.content);
+                    setImage(data.post.image);
+                } else {
+                    setAlert({ message: "Failed to load post data", type: "error" });
+                }
+            } catch (error) {
+                console.error('Error fetching post data:', error);
+            }
+        };
+
+        fetchPost();
+    }, [id]);
 
 
     const handleImageUpload = async (file) => {
-        console.log('Starting image upload...');
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', 'f2cepch9');
@@ -31,21 +51,16 @@ const CreatePost = () => {
                 body: formData,
             });
 
-            console.log('Image upload response:', response);
             const data = await response.json();
 
             if (response.ok) {
                 setImage(data.secure_url);
                 setUploadProgress(100);
                 setAlert({ message: "Image uploaded successfully!", type: "success" });
-
             } else {
                 setAlert({ message: "Image upload failed!", type: "error" });
-                throw new Error(data.message || 'Image upload failed.');
-
             }
         } catch (error) {
-            setAlert({ message: "Image upload failed!", type: "error" });
             console.error("Image upload failed:", error);
         } finally {
             setLoading(false);
@@ -53,12 +68,11 @@ const CreatePost = () => {
     };
 
     const handleFormSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-        console.log('Form submitted:', { title, content, image });
+        e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8090/api/post/create', {
-                method: 'POST',
+            const response = await fetch(`http://localhost:8090/api/post/${id}/edit`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -66,33 +80,31 @@ const CreatePost = () => {
                 body: JSON.stringify({ title, content, image }),
             });
 
-
-            const responseData = await response.json();
-
-            if (!response.ok) {
-                setAlert({ message: "You must be logged in to create a post!", type: "error" });
-                throw new Error(responseData.message || 'Failed to create post.');
-
+            if (response.ok) {
+                navigate('/post/${id}');
+            } else {
+                setAlert({ message: "Failed to update post", type: "error" });
             }
-
-            navigate('/'); // Navigate on success
         } catch (error) {
-            setError(error.message); // Set error message
-            console.error('Error creating post:', error);
+            setAlert({ message: error.message, type: "error" });
         }
+    };
+
+    const handleImageDelete = async () => {
+        // Set image to null and update the post
+        setImage(null);
     };
 
 
     return (
         <div className="createpostpage">
-            <h1>Create a Post</h1>
+            <h1>Edit Post</h1>
             <div className="container">
                 <div
                     className={`image-upload ${image || loading ? 'img-uploaded' : ''}`}
                     onClick={() => document.getElementById('file-input').click()}
                     onDrop={(e) => {
                         e.preventDefault();
-                        console.log('Image dropped:', e.dataTransfer.files[0]);
                         handleImageUpload(e.dataTransfer.files[0]);
                     }}
                     onDragOver={(e) => e.preventDefault()}
@@ -103,13 +115,23 @@ const CreatePost = () => {
                         type="file"
                         id="file-input"
                         style={{ display: 'none' }}
-                        onChange={(e) => {
-                            console.log('File selected:', e.target.files[0]);
-                            handleImageUpload(e.target.files[0]);
-                        }}
+                        onChange={(e) => handleImageUpload(e.target.files[0])}
                     />
                     {loading && <progress value={uploadProgress} max="100"></progress>}
                     {image && <img src={image} alt="Uploaded" className="uploaded-image-preview" />}
+                </div>
+                <div className="imgbtns">
+
+                    {image && (
+                        <>
+                            <button type="button" onClick={handleImageDelete} className="delete-image-btn">
+                                Delete Image
+                            </button>
+                            <button type="button" onClick={() => document.getElementById('file-input').click()} className="upload-new-image-btn">
+                                Upload New Image
+                            </button>
+                        </>
+                    )}
                 </div>
 
                 <div className="create-post-container">
@@ -122,12 +144,11 @@ const CreatePost = () => {
                         required
                     />
 
-
                     <ReactQuill
                         value={content}
                         className='contenttext'
                         onChange={setContent}
-                        placeholder="Write your post content here..."
+                        placeholder="Edit your post content here..."
                         modules={{
                             toolbar: [
                                 [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
@@ -141,11 +162,11 @@ const CreatePost = () => {
                     />
 
                     <button
-                        type="button" // Ensure the button does not submit a form
+                        type="button"
                         className="submit-btn"
-                        onClick={handleFormSubmit} // Call the submit handler on click
+                        onClick={handleFormSubmit}
                     >
-                        Submit
+                        Update Post
                     </button>
                 </div>
             </div>
@@ -153,11 +174,11 @@ const CreatePost = () => {
                 <Alert
                     message={alert.message}
                     type={alert.type}
-                    onClose={() => setAlert(null)} // Clear the alert after it closes
+                    onClose={() => setAlert(null)}
                 />
             )}
         </div>
     );
 };
 
-export default CreatePost;
+export default EditPost;

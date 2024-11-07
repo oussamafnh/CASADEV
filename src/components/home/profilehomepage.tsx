@@ -120,7 +120,7 @@ const Profilehomepage = () => {
                         <FontAwesomeIcon icon={faUser} className="navbar_icon" />
                         My Profile
                     </Link>
-                    <Link to="/" className="profilecard_navbar_btn">
+                    <Link to="/myprofile/bookmarks" className="profilecard_navbar_btn">
                         <FontAwesomeIcon icon={faBookmark} className="navbar_icon" />
                         Bookmarks
                     </Link>

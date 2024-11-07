@@ -6,16 +6,16 @@ import { formatDistanceToNow, format } from 'date-fns';
 
 
 const PostCard = ({ post, isAllowed }) => {
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [isLiked, setIsLiked] = useState(post.isLiked);
+    const [isSaved, setIsSaved] = useState(post.isSaved);
+    const [likeCount, setLikeCount] = useState(post.likeCount);
+    const [alert, setAlert] = useState(null);
 
     const handlePostClick = () => {
         navigate(`/post/${post._id}`);
     };
-
-    const [isLiked, setIsLiked] = useState(post.isLiked);
-    const [isSaved, setIsSaved] = useState(post.isSaved);
-    const [likeCount, setLikeCount] = useState(post.likeCount); // Like count
-    const [alert, setAlert] = useState(null); // State to control alert
 
     const handleLikeToggle = async () => {
         if (!isAllowed) {
@@ -90,14 +90,13 @@ const PostCard = ({ post, isAllowed }) => {
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
         return createdAt >= oneMonthAgo
-            ? formatDistanceToNow(createdAt, { addSuffix: false }) // e.g., "20 mins ago"
-            : format(createdAt, 'MMMM d, yyyy'); // e.g., "September 12, 2024"
+            ? formatDistanceToNow(createdAt, { addSuffix: false })
+            : format(createdAt, 'MMMM d, yyyy');
     };
 
     const handleEditClick = () => {
-        navigate(`/editPost/${post._id}`); // Navigate to edit post page
+        navigate(`/edit-post/${post._id}`);
     };
-    // console.log('Post:', post.commentCou
     const handleProfileClick = () => {
         if (post && post.authorId) {
             if (post.isMe) {
@@ -108,6 +107,39 @@ const PostCard = ({ post, isAllowed }) => {
             }
         }
     };
+
+
+    const handleDeleteClick = () => {
+        setShowDeletePopup(true);
+    };
+
+    const confirmDelete = async () => {
+        try {
+            const response = await fetch(`http://localhost:8090/api/post/delete/${post._id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                // Handle post-deletion logic here, such as refreshing the posts list
+                console.log("Post deleted successfully");
+            } else {
+                console.error("Error deleting post:", response.status);
+            }
+        } catch (error) {
+            console.error("Error deleting post:", error);
+        } finally {
+            setShowDeletePopup(false); // Hide the popup
+        }
+    };
+
+    const cancelDelete = () => {
+        setShowDeletePopup(false); // Close the popup without deleting
+    };
+
 
     return (
         <div className="post_card">
@@ -183,11 +215,10 @@ const PostCard = ({ post, isAllowed }) => {
                             </svg>
                             Edit
                         </button>
-                        <button className="comment-btn elegant-btn">
+                        <button className="comment-btn elegant-btn" onClick={handleDeleteClick}>
                             <svg className="comment-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 30 30">
                                 <path d="M 7 4 C 6.744125 4 6.4879687 4.0974687 6.2929688 4.2929688 L 4.2929688 6.2929688 C 3.9019687 6.6839688 3.9019687 7.3170313 4.2929688 7.7070312 L 11.585938 15 L 4.2929688 22.292969 C 3.9019687 22.683969 3.9019687 23.317031 4.2929688 23.707031 L 6.2929688 25.707031 C 6.6839688 26.098031 7.3170313 26.098031 7.7070312 25.707031 L 15 18.414062 L 22.292969 25.707031 C 22.682969 26.098031 23.317031 26.098031 23.707031 25.707031 L 25.707031 23.707031 C 26.098031 23.316031 26.098031 22.682969 25.707031 22.292969 L 18.414062 15 L 25.707031 7.7070312 C 26.098031 7.3170312 26.098031 6.6829688 25.707031 6.2929688 L 23.707031 4.2929688 C 23.316031 3.9019687 22.682969 3.9019687 22.292969 4.2929688 L 15 11.585938 L 7.7070312 4.2929688 C 7.5115312 4.0974687 7.255875 4 7 4 z"></path>
                             </svg>
-
                             Delete
                         </button>
                     </>
@@ -199,6 +230,17 @@ const PostCard = ({ post, isAllowed }) => {
                     type={alert.type}
                     onClose={() => setAlert(null)}
                 />
+            )}
+            {showDeletePopup && (
+                <div className="delete-popup">
+                    <div className="delete-popup-content">
+                        <p>Are you sure you want to delete this post? This action cannot be undone.</p>
+                        <div className='btns'>
+                        <button onClick={cancelDelete} className="cancel-btn">Cancel</button>
+                        <button onClick={confirmDelete} className="confirm-btn">Yes, Delete</button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );

@@ -3,7 +3,7 @@ import "../../style/profile.css";
 import PostCard from "./PostCard";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faSignOutAlt ,faUser} from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 
@@ -59,27 +59,29 @@ const MyProfile = () => {
                 });
                 const data = await response.json();
                 setPosts(data);
-                setLoading2(false);
+                setTimeout(() => {
+                    setLoading2(false);
+                }, 1000);
             } catch (error) {
                 console.error("Error fetching posts data:", error);
-                setLoading2(false);
+                setTimeout(() => {
+                    setLoading2(false);
+                }, 1000);
             }
         };
-        
+
         if (location.pathname === "/myprofile/bookmarks") {
             setBookmarks(true);
             setProfile(false);
-            console.log(1)
 
         } else if (location.pathname === "/myprofile") {
             setBookmarks(false);
             setProfile(true);
-            console.log(2)
         }
         fetchUser();
         fetchPosts();
     }, [location.pathname]);
-    
+
 
 
     const backhome = () => {
@@ -107,7 +109,6 @@ const MyProfile = () => {
         };
         logoutfunction();
     };
-
     return (
         <div className="profilecomponent">
 
@@ -229,13 +230,19 @@ const MyProfile = () => {
             ) : (
                 <div className="profileposts">
                     <div className="profilepostscontainer">
-                        <p className='posttext' onClick={backhome}> Home </p>
+                        {
+                            bookmarks ? (
+                                <p className='posttext'> <span onClick={backhome}>Home</span>  &gt; Bookmarks  </p>
+                            ) : (
+                                <p className='posttext'> <span onClick={backhome}>Home</span>  &gt; Posts  </p>
+                            )
+                        }
                         {posts.length > 0 ? (
                             posts.map(post => (
-                                <PostCard key={post._id} post={post} isAllowed={isAllowed} isLiked={isLiked} isSaved={isSaved} />
+                                <PostCard key={post._id} post={post} isAllowed={isAllowed} />
                             ))
                         ) : (
-                            <p>No posts available.</p>
+                            <p className='noposts'>No posts available</p>
                         )}
                     </div>
                 </div>

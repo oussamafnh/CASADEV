@@ -18,8 +18,6 @@ const Profile = () => {
     const [loading2, setLoading2] = useState(true);
     const navigate = useNavigate();
 
-
-    useEffect(() => {
         const fetchUser = async () => {
             try {
                 const response = await fetch(`http://localhost:8090/api/auth/user/${userId}`, {
@@ -50,26 +48,32 @@ const Profile = () => {
                 });
                 const data = await response.json();
                 setPosts(data.posts);
-                setIsAllowed(data.isAllowed)
-                setIsLiked(data.isSaved);
-                setIsSaved(data.isSaved);
-                setLoading2(false);
-
+                setIsAllowed(data.isAllowed);
+                setIsLiked(data.posts.isLiked);
+                setIsSaved(data.posts.isSaved);
+        
+                // Add a 1-second delay before setting loading2 to false
+                setTimeout(() => {
+                    setLoading2(false);
+                }, 1000);
             } catch (error) {
                 console.error("Error fetching post data:", error);
-                setLoading2(false);
+                
+                // Ensure loading2 is set to false after the delay even if there was an error
+                setTimeout(() => {
+                    setLoading2(false);
+                }, 1000);
             }
         };
-
+        
         fetchUser();
         fetchPost();
-    }, [userId]);
+        
 
 
     const backhome = () => {
         navigate(`/`); // Navigate to edit post page
     };
-
     return (
         <div className="profilecomponent">
 
@@ -131,14 +135,13 @@ const Profile = () => {
             {!loading2 ? (
                 <div className="profileposts">
                     <div className="profilepostscontainer">
-                        <p className='posttext' onClick={backhome}> Home </p>
-
-                        {posts.length > 0 ? (
+                        <p className='posttext'> <span onClick={backhome}>Home</span>  &gt; {user.username} &gt; Posts  </p>
+                        {user.totalPosts > 0 ? (
                             posts.map(post => (
-                                <PostCard key={post._id} post={post} isAllowed={isAllowed} isLiked={isLiked} isSaved={isSaved} />
+                                <PostCard key={post._id} post={post} isAllowed={isAllowed} />
                             ))
                         ) : (
-                            <p>No posts available.</p>
+                            <p className='noposts'>No posts available</p>
                         )}
                     </div>
                 </div>

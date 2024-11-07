@@ -13,14 +13,14 @@
     margin-top: 2vh;
     height: 1vh;
     width: 84%;
-    position: relative;
     margin-inline: 8%;
+    position: relative;
     border-radius: 10px;
     opacity: 1;
     animation: fadeIn 1.5s;
     display: flex;
     flex-direction: column;
-    animation: fadeIn 1.5s ;
+    animation: fadeIn 1.5s;
 }
 
 .filterandsearch .not_createpost {
@@ -40,8 +40,202 @@
 }
 
 
-.plus_icon{
-    margin-right:10px ;
+.plus_icon {
+    margin-right: 10px;
+}
+
+
+
+.search-bar {
+    margin-top: 2vh;
+    height: 1vh;
+    width: 84%;
+    position: relative;
+    margin-inline: 8%;
+    border-radius: 10px;
+    opacity: 1;
+    animation: fadeIn 1.5s;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 1.5s;
+}
+
+.search-bar input {
+    margin-top: 6vh;
+    padding: 15px;
+    outline: 0 !important;
+    background: var(--bg);
+    color: var(--c2);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+}
+
+
+.search-bar input:focus {
+    border-color: var(--c2);
+    /* Green border on focus */
+}
+
+.search-results {
+    border-radius: 5px;
+    height: 60vh;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    margin-top: 15vh;
+    background-color: white;
+    border: 1px solid #ccc;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    animation: fadeIn 1.5s;
+
+}
+
+.search-results h4 {
+    color: var(--c5);
+    margin-inline: 4%;
+    padding: 1vh;
+    border-bottom: 1px solid var(--bg3);
+}
+
+.search-result-item-user {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    height: 10vh;
+    width: 94%;
+    margin-inline: 3%;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 15px;
+    animation: fadeIn 0.5s;
+    margin-block: 0.5vh;
+}
+
+.search-result-item-user:hover {
+    background-color: #f0f0f0;
+}
+
+.search-result-item-user img {
+    height: 9vh;
+    width: auto;
+    border-radius: 50%;
+    margin-left: 1%;
+}
+
+.search-result-item-user p {
+    text-transform: uppercase;
+}
+
+.search-result-item-user .fullname {
+    text-transform: uppercase;
+    font-size: 2vh;
+}
+
+.search-result-item-user .username {
+    text-transform: uppercase;
+    font-size: 1.5vh;
+    color: var(--c3);
+}
+
+.search-results .seemore {
+    color: var(--c5);
+    margin-inline: 4%;
+    padding: 1vh;
+    cursor: pointer;
+    padding-bottom: 1vh;
+}
+
+.search-result-item-post {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 15px;
+    margin-inline: 3%;
+    margin-block: 1vh;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+
+
+.post-thumbnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-height: 20vh;
+    position: relative;
+}
+
+.post-title {
+    font-size: 2vh;
+    font-weight: bold;
+    color: var(--c2);
+    /* Adjust color based on your CSS variable */
+    margin: 0;
+}
+
+.post-author {
+    font-size: 1.4vh;
+    color: var(--c3);
+    margin: 5px 0;
+}
+
+.date {
+    position: absolute;
+    top: -1vh;
+    right: 5px;
+    font-size: 0.85em;
+    color: #777;
+    margin-top: 5px;
+}
+
+.content {
+    font-size: 1.5vh;
+    overflow-y: hidden;
+}
+
+.guardian{
+    position: absolute;
+    left: 0;               /* Align to the left */
+    right: 0;              /* Align to the right */
+    top: 0;                /* Align to the top */
+    bottom: 0;
+    background-color: transparent;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), white);
+}
+
+
+
+.noresults{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--c3);
+}
+
+
+.copyright{
+    position: absolute;
+    bottom: 5vh;
+    text-align: center;
+    width: 84%;
+    margin-inline: 8%;
+    color: var(--c3);
 }
 
 
@@ -49,6 +243,198 @@
 
 
 
+
+
+
+
+.search-popup{
+    position: absolute;
+    width: 100vw;
+    height: 94vh;
+    top: 6vh;
+}
+
+.searchcontainer{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    animation: fadeIn 1s;
+}
+
+
+.searchsdetails-popup{
+    position: absolute;
+    top: 9vh;
+    width: 44vw;
+    margin-inline: 28vw;
+    height: 84vh;
+    overflow-y: auto;
+    background-color: var(--bg);
+    animation: fadeIn 1s;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+}
+
+.searchdiv{
+    padding-top: 1vh;
+    height: 1vh;
+    width: 44vw;
+    margin-inline: 28vw;
+    position: relative;
+    border-radius: 10px;
+    opacity: 1;
+    animation: fadeIn 1.5s;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 1.5s;
+}
+
+.searchdiv input {
+    padding: 15px;
+    outline: 0 !important;
+    background: var(--bg);
+    color: var(--c2);
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+}
+
+
+.search-results-popup {
+    border-radius: 5px;
+    width: 96%;
+    margin-inline: 2%;
+    animation: fadeIn 1.5s;
+}
+
+.search-results-popup h4 {
+    color: var(--c5);
+    padding: 1vh;
+    border-bottom: 1px solid var(--bg3);
+}
+
+.search-result-item-user-popup {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    height: 10vh;
+    width: 94%;
+    margin-inline: 3%;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 15px;
+    animation: fadeIn 0.5s;
+    margin-block: 0.5vh;
+}
+
+.search-result-item-user:hover {
+    background-color: #f0f0f0;
+}
+
+.search-result-item-user-popup img {
+    height: 9vh;
+    width: auto;
+    border-radius: 50%;
+    margin-left: 1%;
+}
+
+.search-result-item-user-popup p {
+    text-transform: uppercase;
+}
+
+.search-result-item-user-popup .fullname {
+    text-transform: uppercase;
+    font-size: 2vh;
+}
+
+.search-result-item-user-popup .username {
+    text-transform: uppercase;
+    font-size: 1.5vh;
+    color: var(--c3);
+}
+
+
+
+.search-result-item-post-popup {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 15px;
+    margin-block: 1vh;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+
+
+.post-thumbnail-popup {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.post-info-popup {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-height: 30vh;
+    position: relative;
+}
+
+.post-title-popup {
+    font-size: 2vh;
+    font-weight: bold;
+    color: var(--c2);
+
+    margin: 0;
+}
+
+.post-author-popup {
+    font-size: 1.6vh;
+    color: var(--c3);
+    margin: 5px 0;
+}
+
+.date-popup {
+    position: absolute;
+    top: -1vh;
+    right: 5px;
+    font-size: 0.85em;
+    color: #777;
+    margin-top: 5px;
+}
+
+.content-popup {
+    font-size: 1.5vh;
+    overflow-y: hidden;
+}
+
+.guardian-popup{
+    position: absolute;
+    left: 0;               /* Align to the left */
+    right: 0;              /* Align to the right */
+    top: 0;                /* Align to the top */
+    bottom: 0;
+    background-color: transparent;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), white);
+}
+
+
+
+.noresults-popup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--c3);
+}
 
 
 
@@ -65,7 +451,7 @@
 }
 
 
-.filterandsearch_loading  .createpost_loading  {
+.filterandsearch_loading .createpost_loading {
     margin-top: 2vh;
     height: 1vh;
     width: 84%;
@@ -76,10 +462,11 @@
     animation: fadeIn 1.5s;
     display: flex;
     flex-direction: column;
-    animation: fadeInOut 1.5s infinite; /* Adjust the duration as needed */
+    animation: fadeInOut 1.5s infinite;
+    /* Adjust the duration as needed */
 }
 
-.filterandsearch_loading  .createpost_loading  .createpost_btn_loading  {
+.filterandsearch_loading .createpost_loading .createpost_btn_loading {
     padding: 25px;
     border-radius: 5px;
     outline: 0 !important;
@@ -102,9 +489,11 @@
     0% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.3;
     }
+
     100% {
         opacity: 1;
     }
@@ -116,6 +505,7 @@
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }

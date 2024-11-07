@@ -188,10 +188,21 @@
     margin-left: 1.5vw;
     position: fixed;
     cursor: pointer;
+    text-transform:uppercase
 }
 
 
-
+.profilecomponent .profileposts  .profilepostscontainer .noposts{
+    font-size: 16vh;
+    text-transform:uppercase;
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--bg2);
+}
 
 
 

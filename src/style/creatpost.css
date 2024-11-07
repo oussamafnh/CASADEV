@@ -118,8 +118,8 @@ progress {
 }
 
 .submit-btn {
-    margin-top: 10vh;
     width: 100%;
+    margin-top: 10vh;
     padding: 15px;
     background-color: var(--c3);
     color: #fff;
@@ -132,4 +132,24 @@ progress {
 
 .submit-btn:hover {
     background-color: var(--c5);
+}
+
+
+.imgbtns{
+    position: absolute;
+    bottom: 5vh;
+    left: 2vw;
+    width: 46vw;
+    display: flex;
+    gap: 4%;
+}
+
+.imgbtns button{
+    width: 48%;
+    padding: 15px;
+    background-color: var(--c3);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
 }

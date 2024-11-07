@@ -3,11 +3,15 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Logo1 } from '../assets/logo1';
 import "../style/navbar.css";
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
     const [userData, setUserData] = useState<{
         avatar: string | undefined; username: string
     } | null>(null); // State to hold user data
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -42,17 +46,14 @@ const Navbar = () => {
     const handleLogout = () => {
         const logoutfunction = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/auth/logout', {
+                const response = await fetch('http://localhost:8090/api/auth/logout', {
                     method: 'GET',
                     credentials: 'include'
                 });
 
-                if (response.ok) {
-                    window.location.reload();
-                    console.log("Logging out...");
-                } else {
-                    console.error('Failed to logout');
-                }
+                window.location.reload();
+                console.log("Logging out...");
+
             } catch (error) {
                 console.error('Error logout:', error);
             }
@@ -60,6 +61,9 @@ const Navbar = () => {
         logoutfunction();
     };
 
+    const handleProfileClick = () => {
+        navigate(`/myprofile`);
+    };
     return (
         <div className="navbar">
             <div className="container">
@@ -85,7 +89,7 @@ const Navbar = () => {
                                 </svg>
                                 {isDropdownOpen && (
                                     <div className="dropdown">
-                                        <button onClick={() => console.log('Go to Profile')}>Profile</button>
+                                        <button onClick={handleProfileClick}>Profile</button>
                                         <button onClick={handleLogout}>Logout</button>
                                     </div>
                                 )}
