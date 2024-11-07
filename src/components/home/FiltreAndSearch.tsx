@@ -1,10 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import "../../style/FiltreAndSearch.css";
 import { useEffect, useState } from 'react';
 import Alert from '../Alert';
-import { formatDistanceToNow, format } from 'date-fns';
+import { format } from 'date-fns';
 
 const FiltreAndSearch = () => {
     const [userData, setUserData] = useState(null);
@@ -51,45 +51,43 @@ const FiltreAndSearch = () => {
         }
     };
 
-    const handleSearchChange = async (event) => {
+    const handleSearchChange = async (event: { target: { value: any; }; }) => {
         const query = event.target.value;
         setSearchQuery(query);
 
         if (query.length > 0) {
             try {
-                // Use GET method and append the query to the URL
                 const response = await fetch(`http://localhost:8090/api/search?query=${encodeURIComponent(query)}`, {
-                    method: 'GET', // Change to GET
+                    method: 'GET',
                     credentials: 'include',
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data); // Log the response data for debugging
+                    console.log(data);
                     setUsersResults(data.users);
                     setPostsResults(data.posts);
                     setUserslength(data.usersResults);
                     setPostslength(data.postsResults);
                 } else {
                     console.error('Error fetching search results');
-                    setUsersResults([]); // Clear results on error
+                    setUsersResults([]);
                 }
             } catch (error) {
-                console.error('Error in search request:', error);
-                setUsersResults([]); // Clear results on error
+                setUsersResults([]);
             }
         } else {
-            setUsersResults([]); // Clear results if input is empty
+            setUsersResults([]);
         }
     };
 
-    const formattedPostTime = (createdAt) => {
+    const formattedPostTime = (createdAt: string | number | Date) => {
         const createdDate = new Date(createdAt);
         const now = new Date();
-        const timeDiffInSeconds = Math.floor((now - createdDate) / 1000); // Difference in seconds
+        const timeDiffInSeconds = Math.floor((now.getTime() - createdDate.getTime()) / 1000); // Difference in seconds
 
-        const oneDayInSeconds = 86400; // 60 * 60 * 24
-        const oneMonthInSeconds = 2592000; // 60 * 60 * 24 * 30
+        const oneDayInSeconds = 86400;
+        const oneMonthInSeconds = 2592000;
 
         if (timeDiffInSeconds < oneDayInSeconds) {
             const minutes = Math.floor(timeDiffInSeconds / 60);
@@ -98,21 +96,21 @@ const FiltreAndSearch = () => {
             const days = Math.floor(timeDiffInSeconds / oneDayInSeconds);
             return `${days} d`;
         } else {
-            return format(createdDate, 'MMMM d, yyyy'); // e.g., "September 12, 2024"
+            return format(createdDate, 'MMMM d, yyyy');
         }
     };
 
 
-    const handlePostClick = (postId) => {
+    const handlePostClick = (postId: any) => {
         navigate(`/post/${postId}`);
     };
 
-    const handleUserClick = (UserId) => {
+    const handleUserClick = (UserId: any) => {
         navigate(`/profile/${UserId}`);
     };
 
     const handleSearchClick = () => {
-        setShowSearchPopup(true); // Show confirmation popup
+        setShowSearchPopup(true);
     };
     const handleHideSearchClick = () => {
         setShowSearchPopup(false);
@@ -148,7 +146,7 @@ const FiltreAndSearch = () => {
                             {(userslength > 0 || postslength > 0) && (
                                 <>
                                     {userslength > 0 && <h4>Users</h4>}
-                                    {usersResults.slice(0, 3).map(user => (
+                                    {usersResults.slice(0, 3).map((user: any) => (
                                         <div key={user._id} className="search-result-item-user" onClick={() => handleUserClick(user._id)}>
                                             <img src={user.avatar} alt={user.username} />
                                             <div className="fullandusername">
@@ -162,7 +160,7 @@ const FiltreAndSearch = () => {
                                     )}
 
                                     {postslength > 0 && <h4>Posts</h4>}
-                                    {postsResults.slice(0, 3).map(post => (
+                                    {postsResults.slice(0, 3).map((post: any) => (
                                         <div key={post._id} className="search-result-item-post" onClick={() => handlePostClick(post._id)}>
                                             <img src={post.authorAvatar} alt={post.title} className="post-thumbnail" />
                                             <div className="post-info">
@@ -217,7 +215,7 @@ const FiltreAndSearch = () => {
                                 {(userslength > 0 || postslength > 0) && (
                                     <>
                                         {userslength > 0 && <h4>Users</h4>}
-                                        {usersResults.map(user => (
+                                        {usersResults.map((user: any) => (
                                             <div key={user._id} className="search-result-item-user-popup"  onClick={() => handleUserClick(user._id)}>
                                                 <img src={user.avatar} alt={user.username} />
                                                 <div className="fullandusername">
@@ -229,7 +227,7 @@ const FiltreAndSearch = () => {
 
 
                                         {postslength > 0 && <h4>Posts</h4>}
-                                        {postsResults.map(post => (
+                                        {postsResults.map((post: any) => (
                                             <div key={post._id} className="search-result-item-post-popup" onClick={() => handlePostClick(post._id)}>
                                                 <img src={post.authorAvatar} alt={post.title} className="post-thumbnail-popup" />
                                                 <div className="post-info-popup">

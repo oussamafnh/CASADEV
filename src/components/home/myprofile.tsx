@@ -11,8 +11,6 @@ const MyProfile = () => {
     const [user, setUser] = useState<any>(null);
     const [posts, setPosts] = useState<any[]>([]);
     const [isAllowed, setIsAllowed] = useState(true);
-    const [isLiked, setIsLiked] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
     const [bookmarks, setBookmarks] = useState(false);
     const [profile, setProfile] = useState(false);
     const [loading1, setLoading1] = useState(true);
@@ -20,8 +18,7 @@ const MyProfile = () => {
     const navigate = useNavigate();
 
 
-    const location = useLocation(); // Get the current location
-
+    const location = useLocation();
     useEffect(() => {
         const fetchUser = async () => {
             try {

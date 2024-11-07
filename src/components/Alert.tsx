@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../style/alert.css';
-const Alert = ({ message, type, onClose }) => {
+const Alert = ({ message, type, onClose }: { message: string; type: string; onClose?: () => void }) => {
     const [visible, setVisible] = useState(true);
     useEffect(() => {
         const timer = setTimeout(() => {

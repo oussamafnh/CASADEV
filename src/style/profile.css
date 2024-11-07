@@ -111,9 +111,9 @@
     margin-top: 32vh;
 }
 .profilecomponent .Profilehomepage .navbar_icon {
-    margin-right: 8px; /* Space between the icon and text */
-    vertical-align: middle; /* Aligns the icon with the text */
-    font-size: 1.2em; /* Adjust icon size if necessary */
+    margin-right: 8px;
+    vertical-align: middle;
+    font-size: 1.2em;
 }
 .profilecomponent .profilecard_navbar_btn_signin{
     margin-top: -1.7vh;
@@ -134,7 +134,7 @@
     margin-block: 1%;
     height: 96%;
     border-radius: 15px;
-    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-y: auto;
     border: 1px solid var(--border);
 }
 

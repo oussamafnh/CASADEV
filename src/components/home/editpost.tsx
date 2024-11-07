@@ -13,11 +13,9 @@ const EditPost = () => {
     const [image, setImage] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [alert, setAlert] = useState(null);
+    const [alert, setAlert] = useState<{ message: string; type: string } | null>(null);
     const navigate = useNavigate();
     const { id } = useParams();
-
-    // Fetch the existing post data
     useEffect(() => {
         const fetchPost = async () => {
             try {
@@ -39,7 +37,7 @@ const EditPost = () => {
     }, [id]);
 
 
-    const handleImageUpload = async (file) => {
+    const handleImageUpload = async (file: string | Blob) => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', 'f2cepch9');
@@ -67,7 +65,7 @@ const EditPost = () => {
         }
     };
 
-    const handleFormSubmit = async (e) => {
+    const handleFormSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
         try {
@@ -79,19 +77,19 @@ const EditPost = () => {
                 credentials: 'include',
                 body: JSON.stringify({ title, content, image }),
             });
+            console.log({ title, content, image })
 
             if (response.ok) {
-                navigate('/post/${id}');
+                navigate(`/post/${id}`);
             } else {
                 setAlert({ message: "Failed to update post", type: "error" });
             }
         } catch (error) {
-            setAlert({ message: error.message, type: "error" });
+            setAlert({ message: "error", type: "error" });
         }
     };
 
     const handleImageDelete = async () => {
-        // Set image to null and update the post
         setImage(null);
     };
 
@@ -102,7 +100,7 @@ const EditPost = () => {
             <div className="container">
                 <div
                     className={`image-upload ${image || loading ? 'img-uploaded' : ''}`}
-                    onClick={() => document.getElementById('file-input').click()}
+                    onClick={() => document.getElementById('file-input')?.click()}
                     onDrop={(e) => {
                         e.preventDefault();
                         handleImageUpload(e.dataTransfer.files[0]);
@@ -115,7 +113,7 @@ const EditPost = () => {
                         type="file"
                         id="file-input"
                         style={{ display: 'none' }}
-                        onChange={(e) => handleImageUpload(e.target.files[0])}
+                        onChange={(e) => e.target.files && handleImageUpload(e.target.files[0])}
                     />
                     {loading && <progress value={uploadProgress} max="100"></progress>}
                     {image && <img src={image} alt="Uploaded" className="uploaded-image-preview" />}
@@ -127,7 +125,7 @@ const EditPost = () => {
                             <button type="button" onClick={handleImageDelete} className="delete-image-btn">
                                 Delete Image
                             </button>
-                            <button type="button" onClick={() => document.getElementById('file-input').click()} className="upload-new-image-btn">
+                            <button type="button" onClick={() => document.getElementById('file-input')?.click()} className="upload-new-image-btn">
                                 Upload New Image
                             </button>
                         </>

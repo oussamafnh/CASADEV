@@ -12,11 +12,11 @@
 }
 
 .alert-box.success {
-    background-color: #4caf50; /* Green for success */
+    background-color: #4caf50;
 }
 
 .alert-box.error {
-    background-color: #f44336; /* Red for error */
+    background-color: #f44336;
 }
 
 @keyframes fadeInOut {

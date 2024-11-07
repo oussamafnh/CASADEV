@@ -1,35 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Alert from '../Alert'; // Import the Alert component
+import Alert from '../Alert';
 import "../../style/register.css";
 
 const RegisterForm = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [isSignUp, setIsSignUp] = useState(true); // Toggle between Sign Up and Sign In
+  const navigate = useNavigate();
+  const [isSignUp, setIsSignUp] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
-  }); // Form data state without username
-  const [alert, setAlert] = useState(null); // State to manage alert
+  });
+  const [alert, setAlert] = useState<{ message: string; type: string } | null>(null);
 
-  // Handle input changes
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Function to toggle between Sign Up and Sign In
   const toggleForm = () => {
     setIsSignUp((prev) => !prev);
-    setAlert(null); // Reset alert when toggling
+    setAlert(null);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setAlert(null); // Reset alert before each request
+    setAlert(null);
 
-    // Validation
     if (!formData.email || !formData.password || (isSignUp && !formData.confirmPassword)) {
       setAlert({ message: "All fields are required", type: "error" });
       return;
@@ -60,7 +57,7 @@ const RegisterForm = () => {
       const data = await response.json();
 
       if (response.ok) {
-        sessionStorage.setItem('token', data.token); // Store the token
+        sessionStorage.setItem('token', data.token);
 
         setAlert({
           message: isSignUp ? "User registered successfully" : "Logged in successfully",
@@ -69,7 +66,6 @@ const RegisterForm = () => {
 
         setFormData({ email: "", password: "", confirmPassword: "" });
 
-        // Redirect user based on verification status
         if (data.user.isVerified === false) {
           navigate("/Profile_setup", { replace: true });
         } else {
@@ -132,7 +128,7 @@ const RegisterForm = () => {
               </>
             ) : (
               <>
-                Don’t have an account?{" "}
+                Don't have an account?{" "}
                 <span className="sign-up-link" onClick={toggleForm}>
                   Sign up
                 </span>
@@ -141,17 +137,15 @@ const RegisterForm = () => {
           </p>
         </div>
 
-        {/* Render the Alert if there's a message */}
         {alert && (
           <Alert
             message={alert.message}
             type={alert.type}
-            onClose={() => setAlert(null)} // Clear the alert after it closes
+            onClose={() => setAlert(null)}
           />
         )}
       </div>
     </>
   );
 };
-
 export default RegisterForm;

@@ -20,5 +20,5 @@
 .profile,
 .filtre_search {
     position: sticky;
-    overflow: auto; /* In case you want scrollable content within them */
+    overflow: auto;
 }

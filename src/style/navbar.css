@@ -12,7 +12,6 @@
   flex-direction: row;
   justify-content: space-between;
   position: relative;
-  /* border-bottom: 0.1vh solid var(--c2); */
 }
 
 .navbar .container .Logo1 {
@@ -34,8 +33,6 @@
 
 
 .navbar .container .subscribesec .a-button {
-  /* margin-top: 2vh; */
-  /* margin-left: 2vw; */
   margin-right: -2vw;
   display: flex;
   justify-content: center;
@@ -91,13 +88,6 @@
   height: auto;
 }
 
-/* .user-profile {
-  display: flex;
-  align-items: center;
-} */
-
-/* userProfile.css */
-
 .user-profile {
   display: flex;
   align-items: center;
@@ -108,7 +98,6 @@
 
 .profile-menu {
   position: relative;
-  /* Relative positioning for dropdown */
 }
 
 .user-avatar {
@@ -132,48 +121,34 @@
 
 .dropdown button {
   display: block;
-  /* Button takes full width */
   width: 100%;
-  /* Full width */
   padding: 10px;
-  /* Spacing */
   border: none;
-  /* Remove border */
   background: none;
-  /* No background */
   text-align: left;
-  /* Align text to the left */
   cursor: pointer;
-  /* Change cursor to pointer */
 }
 
 .dropdown button:hover {
   background-color: #f0f0f0;
-  /* Background on hover */
 }
 
 .profile-pic {
   width: 40px;
-  /* Adjust the size as needed */
   height: 40px;
   border-radius: 50%;
-  /* Makes it circular */
   margin-right: 10px;
-  /* Space between image and username */
 }
 
 .username {
   margin-right: 10px;
-  /* Space between username and burger menu */
   font-weight: bold;
-  /* Make username bold */
 }
 
 .burger-menu {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* Aligns items to the left */
 }
 
 .burger-menu button {
@@ -181,11 +156,9 @@
   border: none;
   cursor: pointer;
   color: #181717;
-  /* Change color as needed */
   transition: color 0.3s;
 }
 
 .burger-menu button:hover {
   color: #ff0000;
-  /* Change color on hover */
 }

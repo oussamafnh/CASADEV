@@ -5,8 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faUser, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Profilehomepage = () => {
-    const [userData, setUserData] = useState(null);
-    const [loading, setLoading] = useState(true); // Loading state
+    const [userData, setUserData] = useState<{
+        firstName: string;
+        lastName: string;
+        bio: string;
+        avatar: string;
+    } | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -19,14 +24,14 @@ const Profilehomepage = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setUserData(data.user);
-                    setLoading(false); // Stop loading when data is fetched
+                    setLoading(false);
                 } else {
                     console.error('Failed to fetch user data');
-                    setLoading(false); // Stop loading even if there is an error
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                setLoading(false); // Stop loading on error
+                setLoading(false);
             }
         };
 
@@ -133,5 +138,4 @@ const Profilehomepage = () => {
         </div>
     );
 };
-
 export default Profilehomepage;

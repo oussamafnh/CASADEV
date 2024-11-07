@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // To get the post ID from the URL
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import "../../style/profile.css";
 import PostCard from "./PostCard";
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +12,6 @@ const Profile = () => {
     const [user, setUser] = useState<any>({});
     const [posts, setPosts] = useState<any[]>([]);
     const [isAllowed, setIsAllowed] = useState(false);
-    const [isLiked, setIsLiked] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
     const [loading1, setLoading1] = useState(true);
     const [loading2, setLoading2] = useState(true);
     const navigate = useNavigate();
@@ -49,17 +47,11 @@ const Profile = () => {
                 const data = await response.json();
                 setPosts(data.posts);
                 setIsAllowed(data.isAllowed);
-                setIsLiked(data.posts.isLiked);
-                setIsSaved(data.posts.isSaved);
-        
-                // Add a 1-second delay before setting loading2 to false
                 setTimeout(() => {
                     setLoading2(false);
                 }, 1000);
             } catch (error) {
                 console.error("Error fetching post data:", error);
-                
-                // Ensure loading2 is set to false after the delay even if there was an error
                 setTimeout(() => {
                     setLoading2(false);
                 }, 1000);
@@ -72,7 +64,7 @@ const Profile = () => {
 
 
     const backhome = () => {
-        navigate(`/`); // Navigate to edit post page
+        navigate(`/`);
     };
     return (
         <div className="profilecomponent">

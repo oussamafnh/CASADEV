@@ -13,12 +13,11 @@ const CreatePost = () => {
     const [image, setImage] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const [alert, setAlert] = useState(null); // State to control alert
+    const [alert, setAlert] = useState<{ message: string; type: string } | null>(null);
 
 
-    const handleImageUpload = async (file) => {
+    const handleImageUpload = async (file: string | Blob) => {
         console.log('Starting image upload...');
         const formData = new FormData();
         formData.append('file', file);
@@ -52,8 +51,8 @@ const CreatePost = () => {
         }
     };
 
-    const handleFormSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
+    const handleFormSubmit = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
         console.log('Form submitted:', { title, content, image });
 
         try {
@@ -75,9 +74,8 @@ const CreatePost = () => {
 
             }
 
-            navigate('/'); // Navigate on success
+            navigate('/');
         } catch (error) {
-            setError(error.message); // Set error message
             console.error('Error creating post:', error);
         }
     };
@@ -89,7 +87,7 @@ const CreatePost = () => {
             <div className="container">
                 <div
                     className={`image-upload ${image || loading ? 'img-uploaded' : ''}`}
-                    onClick={() => document.getElementById('file-input').click()}
+                    onClick={() => document.getElementById('file-input')?.click()}
                     onDrop={(e) => {
                         e.preventDefault();
                         console.log('Image dropped:', e.dataTransfer.files[0]);
@@ -104,8 +102,10 @@ const CreatePost = () => {
                         id="file-input"
                         style={{ display: 'none' }}
                         onChange={(e) => {
-                            console.log('File selected:', e.target.files[0]);
-                            handleImageUpload(e.target.files[0]);
+                            const files = e.target.files;
+                            if (files && files.length > 0) {
+                                handleImageUpload(files[0]);
+                            }
                         }}
                     />
                     {loading && <progress value={uploadProgress} max="100"></progress>}
@@ -141,9 +141,9 @@ const CreatePost = () => {
                     />
 
                     <button
-                        type="button" // Ensure the button does not submit a form
+                        type="button"
                         className="submit-btn"
-                        onClick={handleFormSubmit} // Call the submit handler on click
+                        onClick={handleFormSubmit}
                     >
                         Submit
                     </button>
@@ -153,7 +153,7 @@ const CreatePost = () => {
                 <Alert
                     message={alert.message}
                     type={alert.type}
-                    onClose={() => setAlert(null)} // Clear the alert after it closes
+                    onClose={() => setAlert(null)}
                 />
             )}
         </div>

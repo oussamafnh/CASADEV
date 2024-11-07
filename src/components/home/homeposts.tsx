@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
-import PostCard from './PostCard'; // Import the PostCard component
+import PostCard from './PostCard';
 import '../../style/homeposts.css';
-import { useNavigate } from "react-router-dom";
 
 
 const Homeposts = () => {
     const [posts, setPosts] = useState([]);
     const [isAllowed, setIsAllowed] = useState(false);
-    const [isLiked, setIsLiked] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
-    const [loading, setLoading] = useState(true); // Loading state
-    const [sortType, setSortType] = useState('latest'); // Default sort type
-    const [paginate, setPaginate] = useState(1); // Default sort type
-    const navigate = useNavigate(); // Initialize useNavigate
+    const [loading, setLoading] = useState(true);
+    const [sortType, setSortType] = useState('latest');
+    const [paginate, setPaginate] = useState(1); 
 
 
     useEffect(() => {
@@ -29,23 +25,21 @@ const Homeposts = () => {
                 const data = await response.json();
     
                 setIsAllowed(data.isAllowed);
-                setIsLiked(data.isSaved);
-                setIsSaved(data.isSaved);
                 setPosts(data.posts);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             } finally {
-                setLoading(false); // Stop loading
+                setLoading(false);
             }
         };
     
         fetchPosts();
-    }, [sortType, paginate]); // Add paginate to the dependency array
+    }, [sortType, paginate]);
     const handleNextClick = () => {
         setPaginate(prev => prev + 1);
         window.scrollTo({
             top: 0,
-            behavior: 'smooth' // Adds a smooth scroll effect
+            behavior: 'smooth'
         });
     };
 
@@ -134,7 +128,7 @@ const Homeposts = () => {
                         </button>
                     </div>
                     {
-                        posts.map((post) => (
+                        posts.map((post: { _id: string }) => (
                             <PostCard key={post._id} post={post} isAllowed={isAllowed}/>
                         ))
                     }

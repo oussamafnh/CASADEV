@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../../style/postcard.css';
 import Alert from '../Alert';
 import { useNavigate } from 'react-router-dom';
 import { formatDistanceToNow, format } from 'date-fns';
 
 
-const PostCard = ({ post, isAllowed }) => {
+const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
     const navigate = useNavigate();
     const [showDeletePopup, setShowDeletePopup] = useState(false);
     const [isLiked, setIsLiked] = useState(post.isLiked);
     const [isSaved, setIsSaved] = useState(post.isSaved);
     const [likeCount, setLikeCount] = useState(post.likeCount);
-    const [alert, setAlert] = useState(null);
+    const [alert, setAlert] = useState<{ message: string; type: string } | null>(null);
 
     const handlePostClick = () => {
         navigate(`/post/${post._id}`);
@@ -43,8 +43,6 @@ const PostCard = ({ post, isAllowed }) => {
                 });
                 setLikeCount(likeCount + 1);
             }
-
-            // Update isLiked state after successful API call
             setIsLiked(!isLiked);
         } catch (error) {
             console.error('Error toggling like:', error);
@@ -58,7 +56,6 @@ const PostCard = ({ post, isAllowed }) => {
         }
 
         try {
-            // If the post is already saved, call the API to unsave it
             const response = await fetch(`http://localhost:8090/api/save/${post._id}/save`, {
                 method: 'POST',
                 headers: {
@@ -75,14 +72,12 @@ const PostCard = ({ post, isAllowed }) => {
             } else {
                 setAlert({ message: "Failed to save/unsave post.", type: "error" });
             }
-            // Update isSaved state after successful API call
             setIsSaved(!isSaved);
         } catch (error) {
             console.error('Error toggling save:', error);
         }
     };
 
-    // Helper function to format the post time
     const formattedPostTime = () => {
         const createdAt = new Date(post.createdAt);
         const now = new Date();
@@ -124,7 +119,6 @@ const PostCard = ({ post, isAllowed }) => {
             });
 
             if (response.ok) {
-                // Handle post-deletion logic here, such as refreshing the posts list
                 console.log("Post deleted successfully");
             } else {
                 console.error("Error deleting post:", response.status);
@@ -132,12 +126,12 @@ const PostCard = ({ post, isAllowed }) => {
         } catch (error) {
             console.error("Error deleting post:", error);
         } finally {
-            setShowDeletePopup(false); // Hide the popup
+            setShowDeletePopup(false);
         }
     };
 
     const cancelDelete = () => {
-        setShowDeletePopup(false); // Close the popup without deleting
+        setShowDeletePopup(false);
     };
 
 
@@ -236,8 +230,8 @@ const PostCard = ({ post, isAllowed }) => {
                     <div className="delete-popup-content">
                         <p>Are you sure you want to delete this post? This action cannot be undone.</p>
                         <div className='btns'>
-                        <button onClick={cancelDelete} className="cancel-btn">Cancel</button>
-                        <button onClick={confirmDelete} className="confirm-btn">Yes, Delete</button>
+                            <button onClick={cancelDelete} className="cancel-btn">Cancel</button>
+                            <button onClick={confirmDelete} className="confirm-btn">Yes, Delete</button>
                         </div>
                     </div>
                 </div>

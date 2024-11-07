@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // To get the post ID from the URL
+import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
+import { useParams } from 'react-router-dom';
 import Alert from '../Alert';
-import '../../style/postdetails.css'; // Create a new CSS file for styling
+import '../../style/postdetails.css';
 import { formatDistanceToNow, format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,19 +9,31 @@ import { useNavigate } from 'react-router-dom';
 
 
 const PostDetails = () => {
-    const { postId } = useParams(); // Get postId from URL
-    const [post, setPost] = useState(''); // State to hold post data
-    const [newComment, setNewComment] = useState(''); // State to hold new comment input
-    const [alert, setAlert] = useState(null); // State to control alert
+    const { postId } = useParams();
+    const [post, setPost] = useState({
+        _id: "",
+        title: "",
+        content: "",
+        image: "",
+        video: "",
+        author: "",
+        authorId: "",
+        authorAvatar: "",
+        isEdited: false,
+        createdAt: "",
+        updatedAt: ""
+    });
+    const [newComment, setNewComment] = useState('');
+    const [alert, setAlert] = useState<{ message: string; type: string } | null>(null);
     const [isLiked, setIsLiked] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
-    const [likeCount, setLikeCount] = useState(0); // Like count
-    const [isMe, setisMe] = useState(0); // Like count
-    const [isAllowed, setIsAllowed] = useState(false); // Permission to interact (like/comment)
-    const [loading, setLoading] = useState(true); // Loading state
-    const [comments, setComments] = useState([]); // State to hold comments
+    const [likeCount, setLikeCount] = useState(0);
+    const [isMe, setisMe] = useState(0);
+    const [isAllowed, setIsAllowed] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [comments, setComments] = useState([]);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -57,7 +69,6 @@ const PostDetails = () => {
         }
 
         try {
-            // If the post is already saved, call the API to unsave it
             const response = await fetch(`http://localhost:8090/api/save/${postId}/save`, {
                 method: 'POST',
                 headers: {
@@ -74,7 +85,6 @@ const PostDetails = () => {
             } else {
                 setAlert({ message: "Failed to save/unsave post.", type: "error" });
             }
-            // Update isSaved state after successful API call
             setIsSaved(!isSaved);
         } catch (error) {
             console.error('Error toggling save:', error);
@@ -110,7 +120,7 @@ const PostDetails = () => {
 
 
 
-    const handleCommentSubmit = async (e) => {
+    const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!isAllowed) {
@@ -134,8 +144,8 @@ const PostDetails = () => {
             });
 
             if (response.ok) {
-                await fetchComments(); // Refresh comments after successful submission
-                setNewComment(''); // Clear the input after submitting
+                await fetchComments();
+                setNewComment('');
             } else {
                 const error = await response.json();
                 setAlert({ message: error.message || "Failed to post comment.", type: "error" });
@@ -154,7 +164,6 @@ const PostDetails = () => {
 
         try {
             if (isLiked) {
-                // Unlike the post
                 await fetch(`http://localhost:8090/api/post/${postId}/unlike`, {
                     method: 'DELETE',
                     headers: {
@@ -162,9 +171,8 @@ const PostDetails = () => {
                     },
                     credentials: 'include',
                 });
-                setLikeCount(likeCount - 1); // Decrease like count
+                setLikeCount(likeCount - 1);
             } else {
-                // Like the post
                 await fetch(`http://localhost:8090/api/post/${postId}/like`, {
                     method: 'POST',
                     headers: {
@@ -181,7 +189,7 @@ const PostDetails = () => {
     };
 
     const handleEditClick = () => {
-        navigate(`/edit-post/${postId}`); // Adjust this path according to your routes
+        navigate(`/edit-post/${postId}`);
     };
 
 
@@ -192,20 +200,19 @@ const PostDetails = () => {
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
         return createdAt >= oneMonthAgo
-            ? formatDistanceToNow(createdAt, { addSuffix: false }) // e.g., "20 mins ago"
-            : format(createdAt, 'MMMM d, yyyy'); // e.g., "September 12, 2024"
+            ? formatDistanceToNow(createdAt, { addSuffix: false })
+            : format(createdAt, 'MMMM d, yyyy');
     };
-    console.log("time : ", comments.createdAt)
 
-    const formattedCommentTime = (createdAt) => {
+    const formattedCommentTime = (createdAt: string | number | Date) => {
         const createdAtDate = new Date(createdAt);
         const now = new Date();
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
         return createdAtDate >= oneMonthAgo
-            ? formatDistanceToNow(createdAtDate, { addSuffix: true }) // e.g., "20 mins ago"
-            : format(createdAtDate, 'MMMM d, yyyy'); // e.g., "September 12, 2024"
+            ? formatDistanceToNow(createdAtDate, { addSuffix: true })
+            : format(createdAtDate, 'MMMM d, yyyy');
     };
     const handleProfileClick = () => {
         if (isMe) {
@@ -216,7 +223,7 @@ const PostDetails = () => {
         }
     };
 
-    const handleCommentProfileClick = (userId, isMe) => {
+    const handleCommentProfileClick = (userId: any, isMe: any) => {
         if (isMe) {
             navigate(`/myprofile`);
         } else {
@@ -226,7 +233,7 @@ const PostDetails = () => {
 
 
     const handleDeleteClick = () => {
-        setShowDeletePopup(true); // Show confirmation popup
+        setShowDeletePopup(true);
     };
 
     const confirmDelete = async () => {
@@ -240,7 +247,6 @@ const PostDetails = () => {
             });
 
             if (response.ok) {
-                // Handle post-deletion logic here, such as refreshing the posts list
                 console.log("Post deleted successfully");
             } else {
                 console.error("Error deleting post:", response.status);
@@ -248,12 +254,12 @@ const PostDetails = () => {
         } catch (error) {
             console.error("Error deleting post:", error);
         } finally {
-            setShowDeletePopup(false); // Hide the popup
+            setShowDeletePopup(false);
         }
     };
 
     const cancelDelete = () => {
-        setShowDeletePopup(false); // Close the popup without deleting
+        setShowDeletePopup(false);
     };
 
 
@@ -326,7 +332,7 @@ const PostDetails = () => {
 
                     <div className="comments-section">
                         {comments.length > 0 ? (
-                            comments.map(comment => (
+                            comments.map((comment: { _id: Key | null | undefined; userAvatar: any; username: string | undefined; userId: any; isMe: any; content: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; createdAt: string | number | Date; }) => (
                                 <div key={comment._id} className="comment">
                                     <img
                                         src={comment.userAvatar || 'https://via.placeholder.com/50'}
@@ -416,7 +422,7 @@ const PostDetails = () => {
                 <Alert
                     message={alert.message}
                     type={alert.type}
-                    onClose={() => setAlert(null)} // Clear the alert after it closes
+                    onClose={() => setAlert(null)}
                 />
             )}
             {showDeletePopup && (

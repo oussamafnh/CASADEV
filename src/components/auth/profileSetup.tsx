@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import '../../style/profilesetup.css';
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
+
+interface Avatar {
+  _id: string;
+  avatarUrl: string;
+}
 const ProfileSetup = () => {
-  const [avatars, setAvatars] = useState([]); // State to hold avatars
-  const [selectedAvatar, setSelectedAvatar] = useState(''); // State to hold selected avatar
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [avatars, setAvatars] = useState<Avatar[]>([]);
+  const [selectedAvatar, setSelectedAvatar] = useState<string>(''); 
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     avatar: '',
@@ -20,37 +26,32 @@ const ProfileSetup = () => {
     const fetchAvatars = async () => {
       try {
         const response = await fetch('http://localhost:8090/api/auth/avatars', {
-          credentials: 'include' // Include credentials for cookies
+          credentials: 'include'
         });
         const data = await response.json();
-        setAvatars(data); // Assuming the response is an array of avatar objects
+        setAvatars(data);
       } catch (error) {
         console.error('Error fetching avatars:', error);
       }
     };
 
-    fetchAvatars(); // Call the function
+    fetchAvatars();
   }, []);
 
-  // Handle avatar selection
-  const handleAvatarSelect = (avatarUrl) => {
+  const handleAvatarSelect = (avatarUrl: string) => {
     setSelectedAvatar(avatarUrl);
     setFormData({ ...formData, avatar: avatarUrl });
   };
 
 
-  // Handle input changes for form data
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-
-      // Send user profile data to setup-profile endpoint
       await fetch('http://localhost:8090/api/auth/setup-profile', {
         method: 'POST',
         headers: {
@@ -58,7 +59,7 @@ const ProfileSetup = () => {
           'Accept': 'application/json',
         },
         body: JSON.stringify(formData),
-        credentials: 'include' // Include credentials for cookies
+        credentials: 'include'
       });
 
       navigate("/", { replace: true });
@@ -71,20 +72,19 @@ const ProfileSetup = () => {
   return (
     <div className="profilesetup">
       <div className="container">
-        {/* Avatar Slider Section */}
         <div className="avatar-slider">
+
           {avatars.map((avatar) => (
             <div
               key={avatar._id}
               className={`avatar-slide ${selectedAvatar === avatar.avatarUrl ? 'selected' : ''}`}
-              onClick={() => handleAvatarSelect(avatar.avatarUrl as string)}
+              onClick={() => handleAvatarSelect(avatar.avatarUrl)}
             >
               <img src={avatar.avatarUrl} alt="Avatar" />
             </div>
           ))}
         </div>
 
-        {/* Card Section */}
         <div className="cardmid">
           <div className="card">
 
@@ -130,5 +130,4 @@ const ProfileSetup = () => {
     </div>
   );
 };
-
 export default ProfileSetup;

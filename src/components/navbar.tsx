@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
     const [userData, setUserData] = useState<{
         avatar: string | undefined; username: string
-    } | null>(null); // State to hold user data
+    } | null>(null);
     const navigate = useNavigate();
 
 
@@ -34,13 +34,13 @@ const Navbar = () => {
 
         };
 
-        fetchUserData(); // Call the fetch function on component mount
+        fetchUserData();
     }, []);
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown visibility
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
-        setIsDropdownOpen((prev) => !prev); // Toggle dropdown visibility
+        setIsDropdownOpen((prev) => !prev);
     };
 
     const handleLogout = () => {
@@ -73,7 +73,6 @@ const Navbar = () => {
 
                 <div className="subscribesec">
                     {userData ? (
-                        // Show user profile if logged in
                         <div className="user-profile">
                             <div className="profile-menu">
                                 <img
@@ -96,7 +95,6 @@ const Navbar = () => {
                             </div>
                         </div>
                     ) : (
-                        // Show login button if not logged in
                         <Link to="/Auth" className="a-button">
                             <button className="button">
                                 <p className="text">Login</p>

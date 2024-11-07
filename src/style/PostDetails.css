@@ -1,9 +1,7 @@
-
 .postdetailspage {
     width: 100vw;
     height: 94vh;
     padding-top: 0vh;
-    /* margin-top: -7.988vh; */
     position: relative;
     background-color: var(--bg3);
 }
@@ -53,7 +51,8 @@
     border-radius: 10px;
     border: 1px solid var(--border);
 }
-.withou-img .post-details{
+
+.withou-img .post-details {
     width: 50%;
     margin-left: 25%;
 }
@@ -100,7 +99,7 @@
     margin-left: 2.5%;
     margin-right: 2.5%;
     padding-bottom: 3vh;
-    max-height:40%; /* Adjust this height as needed */
+    max-height: 40%;
     overflow-y: auto;
 }
 
@@ -108,7 +107,7 @@
     font-size: 2vh;
 }
 
-.post-details .post-content .post-content_content{
+.post-details .post-content .post-content_content {
     margin-top: 1vh;
     font-size: 1.6vh;
 }
@@ -116,45 +115,44 @@
 
 
 .comments-section {
-    max-height: 26%; /* Adjust this height as needed */
-    overflow-y: auto; /* Enables vertical scrolling */
-    padding: 10px; /* Optional: Adds padding inside the comments section */
-    background-color: var(--bg); /* Optional: Sets a background color */
-    border-radius: 5px; /* Optional: Rounds the corners */
+    max-height: 26%;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: var(--bg);
+    border-radius: 5px;
 }
 
-/* Optional: Styles for individual comments */
 .comment {
     display: flex;
-    align-items: flex-start; /* Align items in the comment */
-    margin-bottom: 10px; /* Space between comments */
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
 .comment-avatar {
     cursor: pointer;
-    width: 40px; /* Adjust the size of the avatar */
-    height: 40px; /* Ensure the avatar is circular */
-    border-radius: 50%; /* Make the avatar circular */
-    margin-right: 10px; /* Space between avatar and content */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
 .comment-content {
-    flex-grow: 1; /* Allows the comment content to take the remaining space */
+    flex-grow: 1;
 }
 
 .comment-content p {
-    font-size: 1.4vh; /* Smaller font for the comment content */
+    font-size: 1.4vh;
 }
 
 .comment-username {
     cursor: pointer;
-    font-weight: bold; /* Makes the username bold */
-    font-size: 1.5vh; /* Smaller font for the time */
+    font-weight: bold;
+    font-size: 1.5vh;
 }
 
 .comment-time {
-    font-size: 1.2vh; /* Smaller font for the time */
-    color: #888; /* Lighter color for the time */
+    font-size: 1.2vh;
+    color: #888;
 }
 
 
@@ -191,7 +189,6 @@
     border-radius: 10px;
     border-style: none solid solid none;
     border-width: 0 0 0 0;
-    /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset; */
     color: var(--c2);
     font-size: 1.7vh;
     padding: 5px 8px;
@@ -204,7 +201,7 @@
     outline-width: 0;
 }
 
-.post-details .comment-form button{
+.post-details .comment-form button {
     width: 25%;
     margin-left: 5%;
     border-radius: 10px;
@@ -214,9 +211,10 @@
 
 .notallowed-comment-form {
     opacity: 50%;
-    pointer-events:none;
+    pointer-events: none;
 }
-.notalolwed-post-actions{
+
+.notalolwed-post-actions {
     opacity: 50%;
 }
 
@@ -228,7 +226,6 @@
     border-radius: 10px;
 }
 
-/* Like Button Styling */
 .post-details .like-btn {
     display: flex;
     align-items: center;
@@ -252,7 +249,6 @@
     transition: fill 0.3s ease, stroke 0.3s ease;
 }
 
-/* Toggled Like Button */
 .post-details .liked {
     color: var(--c2);
 }
@@ -260,10 +256,8 @@
 .post-details .liked svg.like-icon {
     fill: var(--c2);
     stroke: none;
-    /* Remove stroke when liked */
 }
 
-/* Comment Button Styling */
 .post-details .comment-btn {
     display: flex;
     align-items: center;
@@ -328,7 +322,8 @@
     right: 0;
 }
 
-.postdetailspage .confirm-btn, .cancel-btn {
+.postdetailspage .confirm-btn,
+.cancel-btn {
     margin: 10px;
     padding: 8px 12px;
     cursor: pointer;
@@ -340,66 +335,67 @@
     border: none;
 }
 
+.search-result-item-post {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s;
+}
+
+.search-result-item-post:hover {
+    background-color: #f5f5f5;
+}
+
+.post-thumbnail {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.post-author {
+    font-size: 12px;
+    color: #666;
+}
+
+.post-content-preview {
+    font-size: 13px;
+    color: var(--c2);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+    line-height: 1.5em;
+    max-height: 3em;
+    color: var(--c2);
+    background: linear-gradient(to bottom, var(--c2) 50%, var(--c4) 50%);
+}
+
+.see-more-posts-link {
+    display: block;
+    margin-top: 10px;
+    color: blue;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 .postdetailspage .cancel-btn {
-    background-color: #6c757d.search-result-item-post {
-        display: flex;
-        align-items: flex-start;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-        transition: background-color 0.2s;
-    }
-    
-    .search-result-item-post:hover {
-        background-color: #f5f5f5;
-    }
-    
-    .post-thumbnail {
-        width: 40px;
-        height: 40px;
-        border-radius: 5px;
-        margin-right: 10px;
-        object-fit: cover;
-    }
-    
-    .post-info {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .post-title {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 0;
-        color: #333;
-    }
-    
-    .post-author {
-        font-size: 12px;
-        color: #666;
-    }
-    
-    .post-content-preview {
-        font-size: 13px;
-        color: var(--c2); /* Color for the first line */
-        display: -webkit-box;
-        -webkit-line-clamp: 2; /* Limit to 2 lines */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        position: relative;
-        line-height: 1.5em;
-        max-height: 3em; /* Approximately 2 lines */
-        color: var(--c2); /* First line color */
-        background: linear-gradient(to bottom, var(--c2) 50%, var(--c4) 50%); /* Second line color */
-    }
-    
-    .see-more-posts-link {
-        display: block;
-        margin-top: 10px;
-        color: blue;
-        text-decoration: underline;
-        font-weight: bold;
-    }
-    ;
+    background-color: #6c757d;
     color: white;
     border: none;
 }
@@ -435,7 +431,7 @@
     flex-direction: row;
 }
 
-.post-detail_loadings{
+.post-detail_loadings {
     height: 78vh;
     margin-block: 8vh;
     background-color: var(--bg);
@@ -490,7 +486,7 @@
 
 
 
-.post-detail_loadings  .post_content {
+.post-detail_loadings .post_content {
     margin-top: 8px;
     width: 95%;
     margin-left: 2.5%;
@@ -498,7 +494,7 @@
     padding-bottom: 3vh;
 }
 
-.post-detail_loadings  .big_title_loading {
+.post-detail_loadings .big_title_loading {
     margin-top: 8px;
     width: 170px;
     height: 20px;
@@ -506,7 +502,7 @@
     background-color: var(--bg3);
 }
 
-.post-detail_loadings  .line_loading {
+.post-detail_loadings .line_loading {
     margin-top: 0.6vh;
     margin-top: 1vh;
     width: 100%;
@@ -515,7 +511,7 @@
     background-color: var(--bg3);
 }
 
-.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading{
+.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading {
     width: 95%;
     margin-left: 2.5%;
     margin-right: 2.5%;
@@ -524,13 +520,14 @@
     bottom: 8vh;
 }
 
-.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading .commenttextarea_loading{
+.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading .commenttextarea_loading {
     width: 70%;
     height: 8vh;
     background-color: var(--bg3);
     border-radius: 10px;
 }
-.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading .btn_loading{
+
+.postdetailspage_loading .postdetails_loading .post-detail_loadings .comment-form_loading .btn_loading {
     width: 25%;
     margin-left: 5%;
     height: 8vh;
@@ -539,7 +536,7 @@
 }
 
 
-.post-detail_loadings .post-actions_loading{
+.post-detail_loadings .post-actions_loading {
     margin-left: 2.5%;
     margin-top: 0vh;
     padding-bottom: 1vh;
@@ -578,9 +575,11 @@
     0% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.3;
     }
+
     100% {
         opacity: 1;
     }

@@ -26,45 +26,28 @@
 .sorting-line {
     flex-grow: 1;
     height: 2px;
-    /* Thickness of the line */
     background-color: #ccc;
-    /* Color of the line */
     margin-right: 10px;
-    /* Space between the line and the label */
 }
 
 .sort-label {
     font-size: 1.5vh;
-    /* Size of the sorting label */
     margin-right: 10px;
-    /* Space between the label and the dropdown */
     color: #000000;
-    /* Label color */
     font-weight: 600;
-    /* Bold label */
 }
 
 .sort-dropdown {
     padding: 8px 15px;
-    /* Add some padding for better click area */
     font-size: 1.5vh;
-    /* Size of the dropdown text */
     border: none;
-    /* Remove border */
     border-radius: 5px;
-    /* Rounded corners */
     background-color: #f0f0f0;
-    /* Background color */
     color: #333;
-    /* Text color */
     cursor: pointer;
-    /* Pointer cursor */
     transition: background-color 0.3s ease;
-    /* Smooth background change */
     appearance: none;
-    /* Remove default arrow */
     position: relative;
-    /* Positioning for the custom arrow */
     border-radius: 0px;
 }
 
@@ -241,7 +224,6 @@ display: none;}
     border-radius: 10px;
 }
 
-/* Post Actions Container */
 .Homeposts_loading .post_card .post-actions {
     margin-left: 2.5%;
     margin-top: 0vh;

@@ -72,7 +72,6 @@
     border-radius: 10px;
 }
 
-/* Post Actions Container */
 .post_card .post-actions {
     margin-left: 2.5%;
     margin-top: 0vh;
@@ -82,7 +81,6 @@
     z-index: 10001;
 }
 
-/* Like Button Styling */
 .post_card .like-btn {
     display: flex;
     align-items: center;
@@ -106,7 +104,6 @@
     transition: fill 0.3s ease, stroke 0.3s ease;
 }
 
-/* Toggled Like Button */
 .post_card .liked {
     color: var(--c2);
 }
@@ -114,10 +111,8 @@
 .post_card .liked svg.like-icon {
     fill: var(--c2);
     stroke: none;
-    /* Remove stroke when liked */
 }
 
-/* Comment Button Styling */
 .post_card .comment-btn {
     display: flex;
     align-items: center;
