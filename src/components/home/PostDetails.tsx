@@ -1,7 +1,7 @@
 import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
 import { useParams } from 'react-router-dom';
 import Alert from '../Alert';
-import '../../style/postdetails.css';
+import '../../style/PostDetails.css';
 import { formatDistanceToNow, format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 
