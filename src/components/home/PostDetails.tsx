@@ -195,7 +195,6 @@ const PostDetails = () => {
 
     const formattedPostTime = () => {
         const createdAt = new Date(post.createdAt);
-        const now = new Date();
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
@@ -206,7 +205,6 @@ const PostDetails = () => {
 
     const formattedCommentTime = (createdAt: string | number | Date) => {
         const createdAtDate = new Date(createdAt);
-        const now = new Date();
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 

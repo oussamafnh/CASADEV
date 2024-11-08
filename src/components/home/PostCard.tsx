@@ -84,7 +84,6 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
 
     const formattedPostTime = () => {
         const createdAt = new Date(post.createdAt);
-        const now = new Date();
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 

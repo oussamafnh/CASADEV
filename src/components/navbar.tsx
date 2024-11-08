@@ -46,7 +46,7 @@ const Navbar = () => {
     const handleLogout = () => {
         const logoutfunction = async () => {
             try {
-                const response = await fetch('http://localhost:8090/api/auth/logout', {
+                await fetch('http://localhost:8090/api/auth/logout', {
                     method: 'GET',
                     credentials: 'include'
                 });

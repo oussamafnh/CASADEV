@@ -16,9 +16,9 @@ const Profile = () => {
     const [loading2, setLoading2] = useState(true);
     const [isfollowed, setIsfollowed] = useState(false);
     const [isfollowingMe, setIsfollowingMe] = useState(false);
-    const [followers, setFollowers] = useState<any>({});
+    // const [followers, setFollowers] = useState<any>({});
     const [followersCount, setFollowersCount] = useState(0);
-    const [following, setFollowing] = useState<any>({});
+    // const [following, setFollowing] = useState<any>({});
     const [followingCount, setFollowingCount] = useState(0);
     const navigate = useNavigate();
 
@@ -82,9 +82,9 @@ const Profile = () => {
                 if (response1.ok && response2.ok) {
                     const data1 = await response1.json();
                     const data2 = await response2.json();
-                    setFollowers(data1.followers);
+                    // setFollowers(data1.followers);
                     setFollowersCount(data1.followersCount);
-                    setFollowing(data2.following);
+                    // setFollowing(data2.following);
                     setFollowingCount(data2.followingCount);
                 }
             } catch (error) {
