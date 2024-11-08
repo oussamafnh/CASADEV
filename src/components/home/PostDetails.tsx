@@ -327,31 +327,31 @@ const PostDetails = () => {
                     <div className="post-content">
                         <h3>{post.title}</h3>
                         <div className="post-content_content" dangerouslySetInnerHTML={{ __html: post.content }} />
-                    </div>
 
 
-                    <div className="comments-section">
-                        {comments.length > 0 ? (
-                            comments.map((comment: { _id: Key | null | undefined; userAvatar: any; username: string | undefined; userId: any; isMe: any; content: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; createdAt: string | number | Date; }) => (
-                                <div key={comment._id} className="comment">
-                                    <img
-                                        src={comment.userAvatar || 'https://via.placeholder.com/50'}
-                                        alt={comment.username}
-                                        onClick={() => handleCommentProfileClick(comment.userId, comment.isMe)}
-                                        className="comment-avatar"
-                                    />
-                                    <div className="comment-content">
-                                        <span className="comment-username" onClick={() => handleCommentProfileClick(comment.userId, comment.isMe)}>{comment.username || 'Unknown User'}</span>
-                                        <p>{comment.content}</p>
-                                        <span className="comment-time">{formattedCommentTime(comment.createdAt)}</span>
+                        <div className="comments-section">
+                            {comments.length > 0 ? (
+                                comments.map((comment: { _id: Key | null | undefined; userAvatar: any; username: string | undefined; userId: any; isMe: any; content: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; createdAt: string | number | Date; }) => (
+                                    <div key={comment._id} className="comment">
+                                        <img
+                                            src={comment.userAvatar || 'https://via.placeholder.com/50'}
+                                            alt={comment.username}
+                                            onClick={() => handleCommentProfileClick(comment.userId, comment.isMe)}
+                                            className="comment-avatar"
+                                        />
+                                        <div className="comment-content">
+                                            <span className="comment-username" onClick={() => handleCommentProfileClick(comment.userId, comment.isMe)}>{comment.username || 'Unknown User'}</span>
+                                            <p>{comment.content}</p>
+                                            <span className="comment-time">{formattedCommentTime(comment.createdAt)}</span>
+                                        </div>
                                     </div>
+                                ))
+                            ) : (
+                                <div>
+                                    <p className='nocomments'>no comments</p>
                                 </div>
-                            ))
-                        ) : (
-                            <div>
-
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
 
 

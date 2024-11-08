@@ -1,21 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "../../style/profile.css";
 import PostCard from "./PostCard";
 import { useNavigate } from 'react-router-dom';
+// import Alert from '../Alert';
 
 
 const Profile = () => {
     const { userId } = useParams();
-
-
     const [user, setUser] = useState<any>({});
     const [posts, setPosts] = useState<any[]>([]);
     const [isAllowed, setIsAllowed] = useState(false);
+    const [isAllowedtoFollow, setIsAllowedtoFollow] = useState(false);
     const [loading1, setLoading1] = useState(true);
     const [loading2, setLoading2] = useState(true);
+    const [isfollowed, setIsfollowed] = useState(false);
+    const [isfollowingMe, setIsfollowingMe] = useState(false);
+    const [followers, setFollowers] = useState<any>({});
+    const [followersCount, setFollowersCount] = useState(0);
+    const [following, setFollowing] = useState<any>({});
+    const [followingCount, setFollowingCount] = useState(0);
     const navigate = useNavigate();
 
+    useEffect(() => {
         const fetchUser = async () => {
             try {
                 const response = await fetch(`http://localhost:8090/api/auth/user/${userId}`, {
@@ -27,6 +34,9 @@ const Profile = () => {
                 });
                 const data = await response.json();
                 setUser(data);
+                setIsfollowed(data.isFollowed);
+                setIsAllowedtoFollow(data.isAllowed);
+                setIsfollowingMe(data.isFollowing);
                 setLoading1(false);
             } catch (error) {
                 console.error("Error fetching post data:", error);
@@ -34,7 +44,10 @@ const Profile = () => {
             }
         };
 
+        fetchUser();
+    }, [userId]); // Only re-run if userId changes
 
+    useEffect(() => {
         const fetchPost = async () => {
             try {
                 const response = await fetch(`http://localhost:8090/api/post/author/${userId}`, {
@@ -57,15 +70,65 @@ const Profile = () => {
                 }, 1000);
             }
         };
-        
-        fetchUser();
-        fetchPost();
-        
 
+        fetchPost();
+    }, [userId]); // Only re-run if userId changes
+
+    useEffect(() => {
+        const fetchfollowersdata = async () => {
+            try {
+                const response1 = await fetch(`http://localhost:8090/api/follow/${userId}/followers`);
+                const response2 = await fetch(`http://localhost:8090/api/follow/${userId}/following`);
+                if (response1.ok && response2.ok) {
+                    const data1 = await response1.json();
+                    const data2 = await response2.json();
+                    setFollowers(data1.followers);
+                    setFollowersCount(data1.followersCount);
+                    setFollowing(data2.following);
+                    setFollowingCount(data2.followingCount);
+                }
+            } catch (error) {
+                console.error('Error fetching followers data:', error);
+            }
+        };
+
+        fetchfollowersdata();
+    }, [userId]);
+    const fetchFollow = async () => {
+        try {
+            const response = await fetch(`http://localhost:8090/api/follow/toggle`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userIdToFollow: userId,
+                }),
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+
+            if (data.message === "Followed successfully") {
+                setIsfollowed(true);
+                setFollowersCount(followersCount + 1);
+
+
+            } else if (data.message === "Unfollowed successfully") {
+                setIsfollowed(false);
+                setFollowersCount(followersCount - 1);
+            } else {
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
 
     const backhome = () => {
         navigate(`/`);
     };
+    console.log(isfollowed);
+
     return (
         <div className="profilecomponent">
 
@@ -88,10 +151,10 @@ const Profile = () => {
                         </div>
                         <div className="profilecard_navbar">
                             <button className="profilecard_navbar_btn">
-                                {user.totalPosts} Posts - followers - following
+                                {user.totalPosts} Posts - {followersCount} followers - {followingCount} following
                             </button>
-                            <button className="profilecard_navbar_btn">
-                                Follow
+                            <button className={`profilecard_navbar_btn ${isAllowedtoFollow ? '' : 'cant_follow'}`} onClick={fetchFollow}>
+                                {isfollowed ? "Unfollow" : (isfollowingMe ? "Follow back" : "Follow")}
                             </button>
                             <button className="profilecard_navbar_btn profilecard_navbar_btn_logout">
                                 Report
@@ -128,13 +191,16 @@ const Profile = () => {
                 <div className="profileposts">
                     <div className="profilepostscontainer">
                         <p className='posttext'> <span onClick={backhome}>Home</span>  &gt; {user.username} &gt; Posts  </p>
-                        {user.totalPosts > 0 ? (
-                            posts.map(post => (
-                                <PostCard key={post._id} post={post} isAllowed={isAllowed} />
-                            ))
-                        ) : (
-                            <p className='noposts'>No posts available</p>
-                        )}
+                        <div className="postss">
+
+                            {user.totalPosts > 0 ? (
+                                posts.map(post => (
+                                    <PostCard key={post._id} post={post} isAllowed={isAllowed} />
+                                ))
+                            ) : (
+                                <p className='noposts'>No posts available</p>
+                            )}
+                        </div>
                     </div>
                 </div>
             ) : (
@@ -187,6 +253,7 @@ const Profile = () => {
                     </div>
                 </div>
             )}
+
         </div>
 
     )

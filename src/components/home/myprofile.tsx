@@ -15,8 +15,11 @@ const MyProfile = () => {
     const [profile, setProfile] = useState(false);
     const [loading1, setLoading1] = useState(true);
     const [loading2, setLoading2] = useState(true);
+    const [followers, setFollowers] = useState<any>({});
+    const [followersCount, setFollowersCount] = useState(0);
+    const [following, setFollowing] = useState<any>({});
+    const [followingCount, setFollowingCount] = useState(0);
     const navigate = useNavigate();
-
 
     const location = useLocation();
     useEffect(() => {
@@ -77,6 +80,26 @@ const MyProfile = () => {
         }
         fetchUser();
         fetchPosts();
+
+
+        const fetchfollowersdata = async () => {
+            try {
+                const response1 = await fetch(`http://localhost:8090/api/follow/${user._id}/followers`);
+                const response2 = await fetch(`http://localhost:8090/api/follow/${user._id}/following`);
+                if (response1.ok && response2.ok) {
+                    const data1 = await response1.json();
+                    const data2 = await response2.json();
+                    setFollowers(data1.followers);
+                    setFollowersCount(data1.followersCount);
+                    setFollowing(data2.following);
+                    setFollowingCount(data2.followingCount);
+                }
+            } catch (error) {
+                console.error('Error fetching followers data:', error);
+            }
+        };
+
+        fetchfollowersdata();
     }, [location.pathname]);
 
 
@@ -128,7 +151,7 @@ const MyProfile = () => {
                         </div>
                         <div className="profilecard_navbar">
                             <button className="profilecard_navbar_btn">
-                                {user?.totalPosts} Posts - followers - following
+                                {user.totalPosts} Posts - {followersCount} followers - {followingCount} following
                             </button>
                             {!bookmarks && profile ? (
                                 <Link to="/myprofile/bookmarks" className="profilecard_navbar_btn">

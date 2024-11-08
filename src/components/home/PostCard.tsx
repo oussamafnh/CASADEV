@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import '../../style/postcard.css';
 import Alert from '../Alert';
 import { useNavigate } from 'react-router-dom';
@@ -12,9 +12,13 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
     const [isSaved, setIsSaved] = useState(post.isSaved);
     const [likeCount, setLikeCount] = useState(post.likeCount);
     const [alert, setAlert] = useState<{ message: string; type: string } | null>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [isTallContent, setIsTallContent] = useState(false);
+
 
     const handlePostClick = () => {
-        navigate(`/post/${post._id}`);
+        navigate(`/post/${post._id}`, { replace: true });
+        window.location.reload();
     };
 
     const handleLikeToggle = async () => {
@@ -135,6 +139,16 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
     };
 
 
+
+    useEffect(() => {
+        if (contentRef.current) {
+            const contentHeight = contentRef.current.offsetHeight;
+            setIsTallContent(contentHeight >= window.innerHeight * 0.45);
+
+        }
+    }, [post.content]);
+
+
     return (
         <div className="post_card">
             <div className="post_header" >
@@ -151,7 +165,10 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
             </div>
             <div className="post_content" onClick={handlePostClick}>
                 <h3>{post.title}</h3>
-                <div className="post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div className="content_ct" ref={contentRef}>
+                    <div className={` ${isTallContent ? 'guardian' : 'show'}`}></div>
+                    <div className="post_content_content" dangerouslySetInnerHTML={{ __html: post.content }} />
+                </div>
                 {post.image && <img src={post.image} alt="Post content" className="post_image" />}
             </div>
 
@@ -239,5 +256,4 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
         </div>
     );
 };
-
 export default PostCard;

@@ -102,6 +102,11 @@
 
 }
 
+.profilecomponent .cant_follow {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
 .profilecomponent .profilecard_navbar_btn:active {
     box-shadow: none;
     border: 1px solid var(--border);
@@ -125,6 +130,10 @@
 .profilecomponent .profileposts {
     width: 72%;
     height: 94vh;
+}
+
+.postss{
+    margin-top: 5vh;
 }
 .profilecomponent .profileposts .profilepostscontainer{
     position: relative;

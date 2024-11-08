@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from '../Alert';
 import "../../style/register.css";
+import Cookies from 'js-cookie'
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -57,8 +58,7 @@ const RegisterForm = () => {
       const data = await response.json();
 
       if (response.ok) {
-        sessionStorage.setItem('token', data.token);
-
+        Cookies.set('token', data.token, { expires: 30, secure: true, sameSite: 'Lax' });
         setAlert({
           message: isSignUp ? "User registered successfully" : "Logged in successfully",
           type: "success"
