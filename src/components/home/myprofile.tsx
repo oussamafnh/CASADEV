@@ -59,6 +59,7 @@ const MyProfile = () => {
                 });
                 const data = await response.json();
                 setPosts(data);
+                setIsAllowed(true);
                 setTimeout(() => {
                     setLoading2(false);
                 }, 1000);
