@@ -16,8 +16,8 @@ const Homeposts = () => {
             setLoading(true);
             try {
                 const endpoint = sortType === 'latest'
-                    ? `http://localhost:8090/api/post/latest?page=${paginate}&limit=10`
-                    : `http://localhost:8090/api/post/mostliked?page=${paginate}&limit=10`;
+                    ? `https://casadev2-1.onrender.com/api/post/latest?page=${paginate}&limit=10`
+                    : `https://casadev2-1.onrender.com/api/post/mostliked?page=${paginate}&limit=10`;
     
                 const response = await fetch(endpoint, {
                     credentials: 'include',
