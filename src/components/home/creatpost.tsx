@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import "../../style/creatpost.css";
 import Alert from '../Alert';
+import { API_BASE_URL } from '../../config';
 
 const CreatePost = () => {
     const [title, setTitle] = useState('');
@@ -56,7 +57,7 @@ const CreatePost = () => {
         console.log('Form submitted:', { title, content, image });
 
         try {
-            const response = await fetch('http://localhost:8090/api/post/create', {
+            const response = await fetch(`${API_BASE_URL}/api/post/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

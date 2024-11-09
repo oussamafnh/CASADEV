@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Logo1 } from '../assets/logo1';
 import "../style/navbar.css";
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
 
 const Navbar = () => {
@@ -16,7 +17,7 @@ const Navbar = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch('http://localhost:8090/api/auth/user', {
+                const response = await fetch(`${API_BASE_URL}/api/auth/user`, {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -46,7 +47,7 @@ const Navbar = () => {
     const handleLogout = () => {
         const logoutfunction = async () => {
             try {
-                await fetch('http://localhost:8090/api/auth/logout', {
+                await fetch(`${API_BASE_URL}/api/auth/logout`, {
                     method: 'GET',
                     credentials: 'include'
                 });

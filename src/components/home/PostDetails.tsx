@@ -4,6 +4,7 @@ import Alert from '../Alert';
 import '../../style/PostDetails.css';
 import { formatDistanceToNow, format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../config';
 
 
 
@@ -38,7 +39,7 @@ const PostDetails = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`http://localhost:8090/api/post/${postId}`, {
+                const response = await fetch(`${API_BASE_URL}/api/post/${postId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ const PostDetails = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:8090/api/save/${postId}/save`, {
+            const response = await fetch(`${API_BASE_URL}/api/save/${postId}/save`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,7 +95,7 @@ const PostDetails = () => {
 
     const fetchComments = async () => {
         try {
-            const response = await fetch(`http://localhost:8090/api/comment/${postId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/comment/${postId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -134,7 +135,7 @@ const PostDetails = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:8090/api/comment/${postId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/comment/${postId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -164,7 +165,7 @@ const PostDetails = () => {
 
         try {
             if (isLiked) {
-                await fetch(`http://localhost:8090/api/post/${postId}/unlike`, {
+                await fetch(`${API_BASE_URL}/api/post/${postId}/unlike`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -173,7 +174,7 @@ const PostDetails = () => {
                 });
                 setLikeCount(likeCount - 1);
             } else {
-                await fetch(`http://localhost:8090/api/post/${postId}/like`, {
+                await fetch(`${API_BASE_URL}/api/post/${postId}/like`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -236,7 +237,7 @@ const PostDetails = () => {
 
     const confirmDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8090/api/post/delete/${post._id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/post/delete/${post._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

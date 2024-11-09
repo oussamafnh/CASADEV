@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { API_BASE_URL } from '../../config';
 
 
 const MyProfile = () => {
@@ -25,7 +26,7 @@ const MyProfile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`http://localhost:8090/api/auth/user`, {
+                const response = await fetch(`${API_BASE_URL}/api/auth/user`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -45,9 +46,9 @@ const MyProfile = () => {
             let fetchUrl;
 
             if (location.pathname === "/myprofile/bookmarks") {
-                fetchUrl = `http://localhost:8090/api/save/saved_posts`;
+                fetchUrl = `${API_BASE_URL}/api/save/saved_posts`;
             } else {
-                fetchUrl = `http://localhost:8090/api/post/myposts`;
+                fetchUrl = `${API_BASE_URL}/api/post/myposts`;
             }
             try {
                 const response = await fetch(fetchUrl, {
@@ -85,8 +86,8 @@ const MyProfile = () => {
 
         const fetchfollowersdata = async () => {
             try {
-                const response1 = await fetch(`http://localhost:8090/api/follow/${user._id}/followers`);
-                const response2 = await fetch(`http://localhost:8090/api/follow/${user._id}/following`);
+                const response1 = await fetch(`${API_BASE_URL}/api/follow/${user._id}/followers`);
+                const response2 = await fetch(`${API_BASE_URL}/api/follow/${user._id}/following`);
                 if (response1.ok && response2.ok) {
                     const data1 = await response1.json();
                     const data2 = await response2.json();
@@ -113,7 +114,7 @@ const MyProfile = () => {
     const handleLogout = () => {
         const logoutfunction = async () => {
             try {
-                const response = await fetch('http://localhost:8090/api/auth/logout', {
+                const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
                     method: 'GET',
                     credentials: 'include'
                 });

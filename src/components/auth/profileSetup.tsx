@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../../style/profilesetup.css';
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from '../../config';
 
 
 interface Avatar {
@@ -25,7 +26,7 @@ const ProfileSetup = () => {
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
-        const response = await fetch('http://localhost:8090/api/auth/avatars', {
+        const response = await fetch(`${API_BASE_URL}/api/auth/avatars`, {
           credentials: 'include'
         });
         const data = await response.json();
@@ -52,7 +53,7 @@ const ProfileSetup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:8090/api/auth/setup-profile', {
+      await fetch(`${API_BASE_URL}/api/auth/setup-profile`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import "../../style/creatpost.css";
 import Alert from '../Alert';
+import { API_BASE_URL } from '../../config';
 
 const EditPost = () => {
     const [title, setTitle] = useState('');
@@ -19,7 +20,7 @@ const EditPost = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`http://localhost:8090/api/post/${id}`);
+                const response = await fetch(`${API_BASE_URL}/api/post/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setTitle(data.post.title);
@@ -69,7 +70,7 @@ const EditPost = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:8090/api/post/${id}/edit`, {
+            const response = await fetch(`${API_BASE_URL}/api/post/${id}/edit`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

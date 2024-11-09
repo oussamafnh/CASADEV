@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from '../Alert';
 import "../../style/register.css";
+import { API_BASE_URL } from '../../config';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const RegisterForm = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8090/api/auth/${isSignUp ? "signup" : "login"}`,
+        `${API_BASE_URL}/api/auth/${isSignUp ? "signup" : "login"}`,
         {
           method: "POST",
           headers: {

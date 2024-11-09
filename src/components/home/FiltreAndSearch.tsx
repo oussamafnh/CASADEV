@@ -5,6 +5,7 @@ import "../../style/FiltreAndSearch.css";
 import { useEffect, useState } from 'react';
 import Alert from '../Alert';
 import { format } from 'date-fns';
+import { API_BASE_URL } from '../../config';
 
 const FiltreAndSearch = () => {
     const [userData, setUserData] = useState(null);
@@ -21,7 +22,7 @@ const FiltreAndSearch = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch('http://localhost:8090/api/auth/user', {
+                const response = await fetch(`${API_BASE_URL}/api/auth/user`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -57,7 +58,7 @@ const FiltreAndSearch = () => {
 
         if (query.length > 0) {
             try {
-                const response = await fetch(`http://localhost:8090/api/search?query=${encodeURIComponent(query)}`, {
+                const response = await fetch(`${API_BASE_URL}/api/search?query=${encodeURIComponent(query)}`, {
                     method: 'GET',
                     credentials: 'include',
                 });

@@ -4,6 +4,7 @@ import "../../style/profile.css";
 import PostCard from "./PostCard";
 import { useNavigate } from 'react-router-dom';
 // import Alert from '../Alert';
+import { API_BASE_URL } from '../../config';
 
 
 const Profile = () => {
@@ -25,7 +26,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`http://localhost:8090/api/auth/user/${userId}`, {
+                const response = await fetch(`${API_BASE_URL}/api/auth/user/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`http://localhost:8090/api/post/author/${userId}`, {
+                const response = await fetch(`${API_BASE_URL}/api/post/author/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -77,8 +78,8 @@ const Profile = () => {
     useEffect(() => {
         const fetchfollowersdata = async () => {
             try {
-                const response1 = await fetch(`http://localhost:8090/api/follow/${userId}/followers`);
-                const response2 = await fetch(`http://localhost:8090/api/follow/${userId}/following`);
+                const response1 = await fetch(`${API_BASE_URL}/api/follow/${userId}/followers`);
+                const response2 = await fetch(`${API_BASE_URL}/api/follow/${userId}/following`);
                 if (response1.ok && response2.ok) {
                     const data1 = await response1.json();
                     const data2 = await response2.json();
@@ -96,7 +97,7 @@ const Profile = () => {
     }, [userId]);
     const fetchFollow = async () => {
         try {
-            const response = await fetch(`http://localhost:8090/api/follow/toggle`, {
+            const response = await fetch(`${API_BASE_URL}/api/follow/toggle`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
