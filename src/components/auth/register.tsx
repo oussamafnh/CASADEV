@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from '../Alert';
 import "../../style/register.css";
-import { API_BASE_URL } from '../../config';
+// import { API_BASE_URL } from '../../config';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const RegisterForm = () => {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/auth/${isSignUp ? "signup" : "login"}`,
+        `https://casadev2-1.onrender.com/api/auth/${isSignUp ? "signup" : "login"}`,
         {
           method: "POST",
           headers: {
@@ -56,6 +56,7 @@ const RegisterForm = () => {
       );
 
       const data = await response.json();
+      console.log(data);
 
       if (response.ok) {
         sessionStorage.setItem('token', data.token);
