@@ -57,7 +57,6 @@ const RegisterForm = () => {
 
       const data = await response.json();
       console.log(data);
-      console.log("token :",data.user.token);
 
       if (response.ok) {
 
@@ -72,7 +71,7 @@ const RegisterForm = () => {
           navigate("/Profile_setup", { replace: true });
         } else {
           navigate("/", { replace: true });
-          // window.location.reload();
+          window.location.reload();
         }
       } else {
         setAlert({ message: data.error || "Some error occurred", type: "error" });
