@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import "../../style/profile.css";
 import PostCard from "./PostCard";
-import { useNavigate } from 'react-router-dom';
-// import Alert from '../Alert';
 import { API_BASE_URL } from '../../config';
-
+import Alert from '../Alert';
 
 const Profile = () => {
     const { userId } = useParams();
@@ -17,10 +15,13 @@ const Profile = () => {
     const [loading2, setLoading2] = useState(true);
     const [isfollowed, setIsfollowed] = useState(false);
     const [isfollowingMe, setIsfollowingMe] = useState(false);
-    // const [followers, setFollowers] = useState<any>({});
     const [followersCount, setFollowersCount] = useState(0);
-    // const [following, setFollowing] = useState<any>({});
     const [followingCount, setFollowingCount] = useState(0);
+    const [showReportPopUp, setShowReportPopUp] = useState(false);
+    const [reportReason, setReportReason] = useState("Inappropriate content");
+    const [reportDescription, setReportDescription] = useState("");
+    const [reportLoading, setReportLoading] = useState(false);
+    const [alert, setAlert] = useState<{ message: string; type: string } | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,9 +29,7 @@ const Profile = () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/auth/user/${userId}`, {
                     method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
                 });
                 const data = await response.json();
@@ -46,65 +45,35 @@ const Profile = () => {
         };
 
         fetchUser();
-    }, [userId]); // Only re-run if userId changes
+    }, [userId]);
 
     useEffect(() => {
         const fetchPost = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/post/author/${userId}`, {
                     method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
                 });
                 const data = await response.json();
                 setPosts(data.posts);
                 setIsAllowed(data.isAllowed);
-                setTimeout(() => {
-                    setLoading2(false);
-                }, 1000);
+                setTimeout(() => setLoading2(false), 1000);
             } catch (error) {
                 console.error("Error fetching post data:", error);
-                setTimeout(() => {
-                    setLoading2(false);
-                }, 1000);
+                setTimeout(() => setLoading2(false), 1000);
             }
         };
 
         fetchPost();
-    }, [userId]); // Only re-run if userId changes
-
-    useEffect(() => {
-        const fetchfollowersdata = async () => {
-            try {
-                const response1 = await fetch(`${API_BASE_URL}/api/follow/${userId}/followers`);
-                const response2 = await fetch(`${API_BASE_URL}/api/follow/${userId}/following`);
-                if (response1.ok && response2.ok) {
-                    const data1 = await response1.json();
-                    const data2 = await response2.json();
-                    // setFollowers(data1.followers);
-                    setFollowersCount(data1.followersCount);
-                    // setFollowing(data2.following);
-                    setFollowingCount(data2.followingCount);
-                }
-            } catch (error) {
-                console.error('Error fetching followers data:', error);
-            }
-        };
-
-        fetchfollowersdata();
     }, [userId]);
+
     const fetchFollow = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/api/follow/toggle`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userIdToFollow: userId,
-                }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userIdToFollow: userId }),
                 credentials: 'include',
             });
 
@@ -113,16 +82,48 @@ const Profile = () => {
             if (data.message === "Followed successfully") {
                 setIsfollowed(true);
                 setFollowersCount(followersCount + 1);
-
-
             } else if (data.message === "Unfollowed successfully") {
                 setIsfollowed(false);
                 setFollowersCount(followersCount - 1);
-            } else {
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
+    };
+
+    const submitReport = async () => {
+        console.log(userId, reportReason, reportDescription);
+        setReportLoading(true);
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/reports`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    targetId: userId,
+                    targetType: "User",
+                    reason: reportReason,
+                    description: reportDescription,
+                }),
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setAlert({ message: "Report submitted successfully!", type: "success" });
+                setShowReportPopUp(false);
+            } else {
+                setAlert({ message: "Failed to submit report: " + data.message, type: "error" });
+            }
+        } catch (error) {
+            setAlert({ message: "Failed to submit report: " + error, type: "error" });
+        } finally {
+            setReportLoading(false);
+        }
+    };
+
+
+    const fetchReport = async () => {
+        setShowReportPopUp(true);
     };
 
     const backhome = () => {
@@ -151,13 +152,13 @@ const Profile = () => {
                             />
                         </div>
                         <div className="profilecard_navbar">
-                            <button className="profilecard_navbar_btn">
+                            <button className="profilecard_navbar_btn followerscount">
                                 {user.totalPosts} Posts - {followersCount} followers - {followingCount} following
                             </button>
                             <button className={`profilecard_navbar_btn ${isAllowedtoFollow ? '' : 'cant_follow'}`} onClick={fetchFollow}>
                                 {isfollowed ? "Unfollow" : (isfollowingMe ? "Follow back" : "Follow")}
                             </button>
-                            <button className="profilecard_navbar_btn profilecard_navbar_btn_logout">
+                            <button className={`profilecard_navbar_btn profilecard_navbar_btn_logout ${isAllowed ? '' : 'cant_report'}`} onClick={fetchReport}>
                                 Report
                             </button>
                         </div>
@@ -254,7 +255,67 @@ const Profile = () => {
                     </div>
                 </div>
             )}
+            {showReportPopUp && (
+                <>
+                    <div className="reportbg" onClick={() => setShowReportPopUp(false)}>
+                    </div>
 
+                    <div className="report-popup">
+                        <div className="report-popup-content">
+                            <h3>Report User</h3>
+                            <div className="radio-group">
+                                <p>Select a reason:</p>
+                                {[
+                                    "Inappropriate content",
+                                    "Harassment",
+                                    "Spam",
+                                    "Fake account",
+                                    "Hate speech",
+                                    "Privacy violation",
+                                    "Scam or fraud",
+                                    "Impersonation",
+                                    "Violence or Threats"
+                                ].map((reason) => (
+                                    <label key={reason} className="radio-option">
+                                        <input
+                                            type="radio"
+                                            name="report-reason"
+                                            value={reason}
+                                            checked={reportReason === reason}
+                                            onChange={(e) => setReportReason(e.target.value)}
+                                        />
+                                        {reason}
+                                    </label>
+                                ))}
+                            </div>
+
+                            <label htmlFor="report-description">Description (optional):</label>
+                            <textarea
+                                id="report-description"
+                                value={reportDescription}
+                                onChange={(e) => setReportDescription(e.target.value)}
+                                placeholder="Provide additional details..."
+                            />
+                            <div className="report-popup-actions">
+                                <button onClick={() => setShowReportPopUp(false)} disabled={reportLoading}>
+                                    Cancel
+                                </button>
+                                <button onClick={submitReport} disabled={reportLoading}>
+                                    {reportLoading ? "Submitting..." : "Submit Report"}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+            )}
+            {alert && (
+                <Alert
+                    message={alert.message}
+                    type={alert.type}
+                    onClose={() => setAlert(null)}
+                />
+            )}
         </div>
 
     )

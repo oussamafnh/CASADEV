@@ -13,6 +13,7 @@ const RegisterForm = () => {
     confirmPassword: "",
   });
   const [alert, setAlert] = useState<{ message: string; type: string } | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,11 +29,15 @@ const RegisterForm = () => {
     e.preventDefault();
     setAlert(null);
 
+    setLoading(true);
+
     if (!formData.email || !formData.password || (isSignUp && !formData.confirmPassword)) {
+      setLoading(false);
       setAlert({ message: "All fields are required", type: "error" });
       return;
     }
     if (isSignUp && formData.password !== formData.confirmPassword) {
+      setLoading(false);
       setAlert({ message: "Passwords do not match", type: "error" });
       return;
     }
@@ -74,9 +79,11 @@ const RegisterForm = () => {
           window.location.reload();
         }
       } else {
+        setLoading(false);
         setAlert({ message: data.error || "Some error occurred", type: "error" });
       }
     } catch (error) {
+      setLoading(false);
       setAlert({ message: "An unexpected error occurred", type: "error" });
     }
   };
@@ -114,9 +121,14 @@ const RegisterForm = () => {
                 placeholder="Password confirmation"
               />
             )}
-            <button className="form-btn">
-              {isSignUp ? "Sign up" : "Sign in"}
+            <button className="form-btn" disabled={loading}>
+              {loading ? (
+                <svg viewBox="25 25 50 50" className="spinner">
+                  <circle r="20" cy="50" cx="50"></circle>
+                </svg>
+              ) : isSignUp ? "Sign up" : "Sign in"}
             </button>
+
           </form>
 
           <p className="sign-up-label">
