@@ -17,10 +17,6 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
     const [isTallContent, setIsTallContent] = useState(false);
 
 
-    const handlePostClick = () => {
-        navigate(`/post/${post._id}`);
-        window.location.reload();
-    };
 
     const handleLikeToggle = async () => {
         if (!isAllowed) {
@@ -107,6 +103,11 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
         }
     };
 
+    
+    const handlePostClick = () => {
+        navigate(`/postdetails/${post._id}`);
+        window.location.reload();
+    };
 
     const handleDeleteClick = () => {
         setShowDeletePopup(true);
