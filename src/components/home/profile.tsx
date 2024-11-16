@@ -48,6 +48,27 @@ const Profile = () => {
     }, [userId]);
 
     useEffect(() => {
+        const fetchfollowersdata = async () => {
+            try {
+                const response1 = await fetch(`${API_BASE_URL}/api/follow/${userId}/followers`);
+                const response2 = await fetch(`${API_BASE_URL}/api/follow/${userId}/following`);
+                if (response1.ok && response2.ok) {
+                    const data1 = await response1.json();
+                    const data2 = await response2.json();
+                    // setFollowers(data1.followers);
+                    setFollowersCount(data1.followersCount);
+                    // setFollowing(data2.following);
+                    setFollowingCount(data2.followingCount);
+                }
+            } catch (error) {
+                console.error('Error fetching followers data:', error);
+            }
+        };
+
+        fetchfollowersdata();
+    }, [userId]);
+
+    useEffect(() => {
         const fetchPost = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/post/author/${userId}`, {
