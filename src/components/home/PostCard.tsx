@@ -18,7 +18,7 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
 
 
     const handlePostClick = () => {
-        navigate(`/post/${post._id}`, { replace: true });
+        navigate(`/post/${post._id}`);
         window.location.reload();
     };
 
@@ -144,7 +144,6 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
         if (contentRef.current) {
             const contentHeight = contentRef.current.offsetHeight;
             setIsTallContent(contentHeight >= window.innerHeight * 0.45);
-
         }
     }, [post.content]);
 
