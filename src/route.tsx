@@ -13,7 +13,7 @@ const RouteConfig = () => {
       <Route path="/" element={<Home />} />
       <Route path="/Auth" element={<RegisterForm />} />
       <Route path="/Profile_setup" element={<ProfileSetup />} />
-      <Route path="/postdetails/:postId" element={<PostDetails />} />
+      <Route path="/post/:postId" element={<PostDetails />} />
       <Route path="/createpost" element={<CreatePost />} />
       <Route path="/edit-post/:id" element={<EditPost />} />
       <Route path="/profile/:userId" element={<Profile />} />

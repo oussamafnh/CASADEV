@@ -1,15 +1,14 @@
-
-import './App.css'
-import Navbar from './components/navbar'
+import './App.css';
+import Navbar from './components/navbar';
 import RouteConfig from './route';
-function App() {
 
+function App() {
   return (
     <>
       <Navbar />
       <RouteConfig />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
