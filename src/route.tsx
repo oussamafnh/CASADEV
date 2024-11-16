@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import RegisterForm from './components/auth/register';
 import Home from './components/home/home';
-import PostDetails from './components/home/PostDetails';
 import EditPost from './components/home/editpost';
 import CreatePost from './components/home/creatpost';
 import Profile from './components/home/profile';
 import MyProfile from './components/home/myprofile';
 import ProfileSetup from './components/auth/profileSetup';
+import PostDetails from './components/home/PostDetails';
 const RouteConfig = () => {
   return (
     <Routes>
