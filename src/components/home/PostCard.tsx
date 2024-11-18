@@ -105,7 +105,7 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
 
     
     const handlePostClick = () => {
-        navigate(`/post/${post._id}`);
+        navigate(`/post/${post._id}` ,{ replace: true });
     };
 
     const handleDeleteClick = () => {

@@ -12,7 +12,7 @@
             "dest": "/"
         },
         {
-            "src": "/post",
+            "src": "/post/:postId",
             "dest": "/"
         },
         {
