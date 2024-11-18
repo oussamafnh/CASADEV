@@ -117,7 +117,13 @@ const FiltreAndSearch = () => {
     };
 
     if (loading) {
-        return <div className="filterandsearch_loading"><div className="createpost_loading"></div></div>;
+        return (
+            <div className="filterandsearch_loading">
+                <div className="createpost_loading"></div>
+                <div className="createpost_loading"></div>
+
+            </div>
+        )
     }
 
     return (
@@ -195,15 +201,15 @@ const FiltreAndSearch = () => {
                 <div className="search-popup">
                     <div className="searchcontainer" onClick={handleHideSearchClick}>
                     </div>
-                        <div className="searchdiv">
+                    <div className="searchdiv">
 
-                            <input
-                                type="text"
-                                placeholder="Search users or posts..."
-                                value={searchQuery}
-                                onChange={handleSearchChange}
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            placeholder="Search users or posts..."
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                        />
+                    </div>
                     <div className="searchsdetails-popup">
 
                         {searchQuery.length > 0 && (
@@ -216,7 +222,7 @@ const FiltreAndSearch = () => {
                                     <>
                                         {userslength > 0 && <h4>Users</h4>}
                                         {usersResults.map((user: any) => (
-                                            <div key={user._id} className="search-result-item-user-popup"  onClick={() => handleUserClick(user._id)}>
+                                            <div key={user._id} className="search-result-item-user-popup" onClick={() => handleUserClick(user._id)}>
                                                 <img src={user.avatar} alt={user.username} />
                                                 <div className="fullandusername">
                                                     <p className='fullname'>{user.firstName} {user.lastName}</p>

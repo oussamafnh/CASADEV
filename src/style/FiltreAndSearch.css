@@ -206,7 +206,7 @@
     overflow-y: hidden;
 }
 
-.filterandsearch .guardian{
+.filterandsearch .guardian {
     position: absolute;
     left: 0;
     right: 0;
@@ -218,7 +218,7 @@
 
 
 
-.noresults{
+.noresults {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -227,7 +227,7 @@
 }
 
 
-.copyright{
+.copyright {
     position: absolute;
     bottom: 5vh;
     text-align: center;
@@ -245,14 +245,14 @@
 
 
 
-.search-popup{
+.search-popup {
     position: absolute;
     width: 100vw;
     height: 94vh;
     top: 6vh;
 }
 
-.searchcontainer{
+.searchcontainer {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -262,7 +262,7 @@
 }
 
 
-.searchsdetails-popup{
+.searchsdetails-popup {
     position: absolute;
     top: 9vh;
     width: 44vw;
@@ -275,7 +275,7 @@
     border: 1px solid var(--border);
 }
 
-.searchdiv{
+.searchdiv {
     padding-top: 1vh;
     height: 1vh;
     width: 44vw;
@@ -414,7 +414,7 @@
     overflow-y: hidden;
 }
 
-.guardian-popup{
+.guardian-popup {
     position: absolute;
     left: 0;
     right: 0;
@@ -426,7 +426,7 @@
 
 
 
-.noresults-popup{
+.noresults-popup {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -446,37 +446,27 @@
     background-color: var(--bg3);
     width: 28vw;
     height: 94vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: auto;
 }
 
 
 .filterandsearch_loading .createpost_loading {
+    background-color: var(--bg);
     margin-top: 2vh;
-    height: 1vh;
+    height: 6.5vh;
     width: 84%;
-    position: relative;
     margin-inline: 8%;
+    position: relative;
     border-radius: 10px;
     opacity: 1;
-    animation: fadeIn 1.5s;
     display: flex;
     flex-direction: column;
+    border: 1px solid var(--border);
     animation: fadeInOut 1.5s infinite;
 }
-
-.filterandsearch_loading .createpost_loading .createpost_btn_loading {
-    padding: 25px;
-    border-radius: 5px;
-    outline: 0 !important;
-    background: var(--bg);
-    color: var(--c2);
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    border: 1px solid var(--border);
-}
-
-
-
 
 
 

@@ -6,7 +6,7 @@
     width: 100%;
     height: 100%;
     background: var(--bg);
-    color: var(--c2);
+    color: var(--bg6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +20,6 @@
 }
 
 .mobile-warning .mobile-warning.message-container {
-    background: #ff4e00;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(121, 121, 121, 0.5);
