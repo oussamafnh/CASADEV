@@ -62,9 +62,9 @@ npm install
 Create a `.env` file at the root of the project and add the required environment variables:
 
 ```env
-VITE_CLOUDINARY_UPLOAD_PRESET=f2cepch9
-VITE_CLOUDINARY_URL=https://api.cloudinary.com/v1_1/dq7kjds8s/image/upload
-VITE_API_ENDPOINT_URL=https://casadev2-4aiv.onrender.com
+VITE_CLOUDINARY_UPLOAD_PRESET=********
+VITE_CLOUDINARY_URL=********************************
+VITE_API_ENDPOINT_URL=********************************
 ```
 
 ### 4. Run the development server
