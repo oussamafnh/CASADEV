@@ -1,1 +1,39 @@
-{ "rewrites": [{ "source": "/( .* )", "destination": "/" }] }
+{
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/"
+        },
+        {
+            "src": "/Auth",
+            "dest": "/"
+        },        {
+            "src": "/Profile_setup",
+            "dest": "/"
+        },
+        {
+            "src": "/post/:postId",
+            "dest": "/"
+        },
+        {
+            "src": "/createpost",
+            "dest": "/"
+        },
+        {
+            "src": "/edit-post/:id",
+            "dest": "/"
+        },
+        {
+            "src": "/profile/:userId",
+            "dest": "/"
+        },
+        {
+            "src": "/myprofile",
+            "dest": "/"
+        },
+        {
+            "src": "/myprofile/bookmarks",
+            "dest": "/"
+        }
+    ]
+}
