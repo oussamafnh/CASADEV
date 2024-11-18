@@ -23,9 +23,9 @@ CASADEV is a social media application inspired by platforms like Facebook, Insta
 Before running the application locally, make sure you have the following environment variables set in your `.env` file:
 
 ```env
-VITE_CLOUDINARY_UPLOAD_PRESET=f2cepch9
-VITE_CLOUDINARY_URL=https://api.cloudinary.com/v1_1/dq7kjds8s/image/upload
-VITE_API_ENDPOINT_URL=https://casadev2-4aiv.onrender.com
+VITE_CLOUDINARY_UPLOAD_PRESET=********
+VITE_CLOUDINARY_URL=********************************
+VITE_API_ENDPOINT_URL=https:************************
 ```
 
 - `VITE_CLOUDINARY_UPLOAD_PRESET`: Your Cloudinary upload preset key for uploading images.
