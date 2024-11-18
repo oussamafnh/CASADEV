@@ -25,7 +25,7 @@ Before running the application locally, make sure you have the following environ
 ```env
 VITE_CLOUDINARY_UPLOAD_PRESET=********
 VITE_CLOUDINARY_URL=********************************
-VITE_API_ENDPOINT_URL=https:************************
+VITE_API_ENDPOINT_URL=********************************
 ```
 
 - `VITE_CLOUDINARY_UPLOAD_PRESET`: Your Cloudinary upload preset key for uploading images.
