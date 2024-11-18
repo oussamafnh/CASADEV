@@ -43,10 +43,6 @@
         {
             "src": "/profile/notfound",
             "dest": "/"
-        },
-        {
-            "src": "*",
-            "dest": "/"
         }
     ]
 }
