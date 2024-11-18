@@ -3,7 +3,6 @@ import '../../style/postcard.css';
 import Alert from '../Alert';
 import { useNavigate } from 'react-router-dom';
 import { formatDistanceToNow, format } from 'date-fns';
-import { API_BASE_URL } from '../../config';
 
 
 const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
@@ -26,7 +25,7 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
 
         try {
             if (isLiked) {
-                await fetch(`${API_BASE_URL}/api/post/${post._id}/unlike`, {
+                await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/${post._id}/unlike`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -35,7 +34,7 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
                 });
                 setLikeCount(likeCount - 1);
             } else {
-                await fetch(`${API_BASE_URL}/api/post/${post._id}/like`, {
+                await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/${post._id}/like`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -57,7 +56,7 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/save/${post._id}/save`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/save/${post._id}/save`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -103,9 +102,9 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
         }
     };
 
-    
+
     const handlePostClick = () => {
-        navigate(`/post/${post._id}` ,{ replace: true });
+        navigate(`/post/${post._id}`, { replace: true });
     };
 
     const handleDeleteClick = () => {
@@ -114,7 +113,7 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
 
     const confirmDelete = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/post/delete/${post._id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/delete/${post._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -131,6 +130,7 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
             console.error("Error deleting post:", error);
         } finally {
             setShowDeletePopup(false);
+            window.location.reload();
         }
     };
 

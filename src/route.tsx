@@ -7,6 +7,9 @@ import Profile from './components/home/profile';
 import MyProfile from './components/home/myprofile';
 import ProfileSetup from './components/auth/profileSetup';
 import PostDetails from './components/home/PostDetails';
+import PageFound from './components/PageFound';
+import PostFound from './components/PostFound';
+import ProfileFound from './components/ProfileFound';
 const RouteConfig = () => {
   return (
     <Routes>
@@ -19,6 +22,9 @@ const RouteConfig = () => {
       <Route path="/profile/:userId" element={<Profile />} />
       <Route path="/myprofile" element={<MyProfile />} />
       <Route path="/myprofile/bookmarks" element={<MyProfile />} />
+      <Route path="*" element={<PageFound />} />
+      <Route path="/post/notfound" element={<PostFound />} />
+      <Route path="/profile/notfound" element={<ProfileFound />} />
 
     </Routes>
   );

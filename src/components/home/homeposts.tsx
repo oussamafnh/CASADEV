@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import PostCard from './PostCard';
 import '../../style/homeposts.css';
-import { API_BASE_URL } from '../../config';
 
 
 const Homeposts = () => {
@@ -17,8 +16,8 @@ const Homeposts = () => {
             setLoading(true);
             try {
                 const endpoint = sortType === 'latest'
-                    ? `${API_BASE_URL}/api/post/latest?page=${paginate}&limit=10`
-                    : `${API_BASE_URL}/api/post/mostliked?page=${paginate}&limit=10`;
+                    ? `${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/latest?page=${paginate}&limit=10`
+                    : `${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/mostliked?page=${paginate}&limit=10`;
     
                 const response = await fetch(endpoint, {
                     credentials: 'include',

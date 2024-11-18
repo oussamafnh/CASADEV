@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from '../Alert';
 import "../../style/register.css";
-import { API_BASE_URL } from '../../config';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -44,7 +43,7 @@ const RegisterForm = () => {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/auth/${isSignUp ? "signup" : "login"}`,
+        `${import.meta.env.VITE_API_ENDPOINT_URL}/api/auth/${isSignUp ? "signup" : "login"}`,
         {
           method: "POST",
           headers: {

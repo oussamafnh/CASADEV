@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faUser, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { API_BASE_URL } from '../../config';
 
 const Profilehomepage = () => {
     const [userData, setUserData] = useState<{
@@ -17,7 +16,7 @@ const Profilehomepage = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/api/auth/user`, {
+                const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/auth/user`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -43,7 +42,7 @@ const Profilehomepage = () => {
     const handleLogout = () => {
         const logoutfunction = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
+                const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/auth/logout`, {
                     method: 'GET',
                     credentials: 'include'
                 });

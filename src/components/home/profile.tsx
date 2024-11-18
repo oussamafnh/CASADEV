@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "../../style/profile.css";
 import PostCard from "./PostCard";
-import { API_BASE_URL } from '../../config';
 import Alert from '../Alert';
 
 const Profile = () => {
@@ -27,11 +26,15 @@ const Profile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/api/auth/user/${userId}`, {
+                const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/auth/user/${userId}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
                 });
+                if (!response.ok) {
+                    navigate('/profile/notfound ');
+                    return;
+                }
                 const data = await response.json();
                 setUser(data);
                 setIsfollowed(data.isFollowed);
@@ -45,13 +48,13 @@ const Profile = () => {
         };
 
         fetchUser();
-    }, [userId]);
+    }, [userId,navigate]);
 
     useEffect(() => {
         const fetchfollowersdata = async () => {
             try {
-                const response1 = await fetch(`${API_BASE_URL}/api/follow/${userId}/followers`);
-                const response2 = await fetch(`${API_BASE_URL}/api/follow/${userId}/following`);
+                const response1 = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/follow/${userId}/followers`);
+                const response2 = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/follow/${userId}/following`);
                 if (response1.ok && response2.ok) {
                     const data1 = await response1.json();
                     const data2 = await response2.json();
@@ -71,7 +74,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/api/post/author/${userId}`, {
+                const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/author/${userId}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
@@ -91,7 +94,7 @@ const Profile = () => {
 
     const fetchFollow = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/follow/toggle`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/follow/toggle`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userIdToFollow: userId }),
@@ -116,7 +119,7 @@ const Profile = () => {
         console.log(userId, reportReason, reportDescription);
         setReportLoading(true);
         try {
-            const response = await fetch(`${API_BASE_URL}/api/reports`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/reports`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

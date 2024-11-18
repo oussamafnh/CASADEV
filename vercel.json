@@ -35,6 +35,18 @@
         {
             "src": "/myprofile/bookmarks",
             "dest": "/"
+        },
+        {
+            "src": "/post/notfound*",
+            "dest": "/"
+        },
+        {
+            "src": "/profile/notfound",
+            "dest": "/"
+        },
+        {
+            "src": "*",
+            "dest": "/"
         }
     ]
 }

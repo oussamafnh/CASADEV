@@ -4,7 +4,6 @@ import Alert from '../Alert';
 import '../../style/PostDetails.css';
 import { formatDistanceToNow, format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import { API_BASE_URL } from '../../config';
 
 
 
@@ -39,13 +38,17 @@ const PostDetails = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/api/post/${postId}`, {
+                const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/${postId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     credentials: 'include',
                 });
+                if (!response.ok) {
+                    navigate('/post/notfound ');
+                    return;
+                }
                 const data = await response.json();
                 setPost(data.post);
                 setIsLiked(data.isLiked);
@@ -61,7 +64,7 @@ const PostDetails = () => {
         };
 
         fetchPost();
-    }, [postId]);
+    }, [postId,navigate]);
 
     const handleSaveToggle = async () => {
         if (!isAllowed) {
@@ -70,7 +73,7 @@ const PostDetails = () => {
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/save/${postId}/save`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/save/${postId}/save`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +98,7 @@ const PostDetails = () => {
 
     const fetchComments = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/comment/${postId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/comment/${postId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -135,7 +138,7 @@ const PostDetails = () => {
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/comment/${postId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/comment/${postId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -165,7 +168,7 @@ const PostDetails = () => {
 
         try {
             if (isLiked) {
-                await fetch(`${API_BASE_URL}/api/post/${postId}/unlike`, {
+                await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/${postId}/unlike`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -174,7 +177,7 @@ const PostDetails = () => {
                 });
                 setLikeCount(likeCount - 1);
             } else {
-                await fetch(`${API_BASE_URL}/api/post/${postId}/like`, {
+                await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/${postId}/like`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -237,7 +240,7 @@ const PostDetails = () => {
 
     const confirmDelete = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/post/delete/${post._id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/delete/${post._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

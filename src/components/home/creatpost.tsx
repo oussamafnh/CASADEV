@@ -6,9 +6,9 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import "../../style/creatpost.css";
 import Alert from '../Alert';
-import { API_BASE_URL } from '../../config';
 
 const CreatePost = () => {
+
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
@@ -22,11 +22,11 @@ const CreatePost = () => {
         console.log('Starting image upload...');
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('upload_preset', 'f2cepch9');
+        formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
         setLoading(true);
 
         try {
-            const response = await fetch(`https://api.cloudinary.com/v1_1/dq7kjds8s/image/upload`, {
+            const response = await fetch(`${import.meta.env.VITE_CLOUDINARY_URL}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -57,7 +57,7 @@ const CreatePost = () => {
         console.log('Form submitted:', { title, content, image });
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/post/create`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/api/post/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const CreatePost = () => {
         }
     };
 
-
+    
     return (
         <div className="createpostpage">
             <h1>Create a Post</h1>
