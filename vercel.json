@@ -7,12 +7,13 @@
         {
             "src": "/Auth",
             "dest": "/"
-        },        {
+        },
+        {
             "src": "/Profile_setup",
             "dest": "/"
         },
         {
-            "src": "/post",
+            "src": "/post/.*",
             "dest": "/"
         },
         {
@@ -20,11 +21,11 @@
             "dest": "/"
         },
         {
-            "src": "/edit-post",
+            "src": "/edit-post/.*",
             "dest": "/"
         },
         {
-            "src": "/profile",
+            "src": "/profile/.*",
             "dest": "/"
         },
         {
