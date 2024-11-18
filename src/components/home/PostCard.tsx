@@ -106,7 +106,6 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
     
     const handlePostClick = () => {
         navigate(`/post/${post._id}`);
-        window.location.reload();
     };
 
     const handleDeleteClick = () => {
