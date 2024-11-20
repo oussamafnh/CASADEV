@@ -23,8 +23,7 @@ const Navbar = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    setUserData(data.user);
-                    console.log(data);
+                    setUserData(data.user)
                 } else {
                     console.error('Failed to fetch user data');
                 }
