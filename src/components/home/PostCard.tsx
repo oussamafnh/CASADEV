@@ -143,7 +143,7 @@ const PostCard = ({ post, isAllowed }: { post: any; isAllowed: boolean }) => {
     useEffect(() => {
         if (contentRef.current) {
             const contentHeight = contentRef.current.offsetHeight;
-            setIsTallContent(contentHeight >= window.innerHeight * 0.45);
+            setIsTallContent(contentHeight >= window.innerHeight * 0.25);
         }
     }, [post.content]);
 
