@@ -22,8 +22,10 @@ function App() {
   }, []);
   return (
     isMobile ? (
-      <MobileWarning />
-      <Analytics/>
+      <>
+        <MobileWarning />
+        <Analytics />
+      </>
     ) : (
       <>
         <Analytics />
