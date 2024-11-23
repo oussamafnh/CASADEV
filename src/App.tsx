@@ -3,7 +3,7 @@ import MobileWarning from './components/MobileWarning';
 import Navbar from './components/navbar';
 import RouteConfig from './route';
 import { useEffect, useState } from 'react';
-
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
@@ -23,8 +23,10 @@ function App() {
   return (
     isMobile ? (
       <MobileWarning />
+      <Analytics/>
     ) : (
       <>
+        <Analytics />
         <Navbar />
         <RouteConfig />
       </>
