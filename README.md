@@ -2,6 +2,7 @@
 
 CASADEV is a social media application inspired by platforms like Facebook, Instagram, and LinkedIn. It allows users to create posts, interact with content, manage their profiles, and more. The app is designed to provide an engaging and user-friendly experience for users to share updates, interact with friends, and keep up with what’s happening in their community.
 
+
 ## Features
 
 - **User Authentication**: Secure login and registration system.
