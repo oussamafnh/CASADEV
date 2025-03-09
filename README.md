@@ -17,7 +17,7 @@ CASADEV is a social media application inspired by platforms like Facebook, Insta
 - **Frontend**: React.js, TypeScript, Vite
 - **Backend**: Node.js, Express, MongoDB (or your chosen backend stack)
 - **Cloud Storage**: Cloudinary for image uploads
-- **Deployment**: Vercel (Frontend), Render (Backend)
+- **Deployment**: Vercel (Frontend), Render (Backend) 
 
 ## Contributing
 
